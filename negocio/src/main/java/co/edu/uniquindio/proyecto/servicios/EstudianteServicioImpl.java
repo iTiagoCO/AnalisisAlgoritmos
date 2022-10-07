@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.Estudiante;
 import co.edu.uniquindio.proyecto.repositorios.EstudianteRepo;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,6 +10,7 @@ import javax.faces.context.FacesContext;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EstudianteServicioImpl implements EstudianteServicio{
 
     private List<Estudiante> usuarios;

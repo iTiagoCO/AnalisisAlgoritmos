@@ -15,12 +15,13 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Pregunta implements Serializable {
+public class Status implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer cod;
+
 
     @NotBlank
     @Column(length = 50,nullable = false)
@@ -30,19 +31,8 @@ public class Pregunta implements Serializable {
     @Column(length = 100,nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
-    private Boolean esVisible;
 
-    @OneToMany(mappedBy = "pregunta")
+    @OneToMany(mappedBy = "status")
     @ToString.Exclude
-    private List<Opcion> opcionList;
-
-
-    @ManyToMany
-    @ToString.Exclude
-    private List<Prueba> pruebas;
-
-    @ManyToOne
-    @ToString.Exclude
-    private Categorias categoria;
+    private List<Estudiante> estudianteList;
 }

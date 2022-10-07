@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h1="http://java.sun.com/jsf/html">
+<head>
+    <link rel="stylesheet" href="./resources/css/styles.css"></link>
+</head>
+<ui:composition template="WEB-INF/template.xhtml">
+    <ui:define name="title">Gestionar estudiantes</ui:define>
+    <ui:define name="content">
+
+        <h:form>
+
+            <p:dataTable var="customer" value="#{profesorBean.estudianteList}" widgetVar="customersTable2"
+                         emptyMessage="No customers found with given criteria"
+                         filteredValue="#{profesorBean.estudianteFilterList}" filterBy="#{profesorBean.filterBy}">
+
+                <f:facet name="header">
+                    <span>List</span>
+                </f:facet>
+
+                <p:column headerText="Name" sortBy="#{customer.nombre}" >
+                    <h:outputText value="#{customer.nombre}" />
+                </p:column>
+
+                <p:column headerText="Localidad">
+                    <span class="flag flag-co" style="width: 30px; height: 20px" />
+                    <h:outputText style="vertical-align: middle; margin-left: .5rem" value="Colombia" />
+                </p:column>
+
+                <p:column  headerText="Status" >
+                    <span class="customer-badge status-regular">#{customer.status.titulo}</span>
+                </p:column>
+
+                <p:column  headerText="Promedio" sortBy="#{customer.promedio}"
+                          converter="javax.faces.Integer">
+                    <p:progressBar value="#{customer.promedio}" displayOnly="true" style="height: .5rem" />
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

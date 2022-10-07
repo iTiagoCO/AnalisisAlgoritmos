@@ -9,11 +9,16 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @ToString(callSuper = true)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Profesor extends Persona implements Serializable {
 
     @OneToMany(mappedBy = "profesor")
     @ToString.Exclude
     private List<Prueba> prueba;
+
+    public Profesor(int cod, String nombre, String email, String password) {
+        super(cod, nombre, email, password);
+    }
 }

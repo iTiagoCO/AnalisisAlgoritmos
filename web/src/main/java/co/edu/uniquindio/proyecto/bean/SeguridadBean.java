@@ -23,19 +23,24 @@ public class SeguridadBean implements Serializable {
     @Getter
     @Setter
     private boolean autenticado;
-    @Autowired
+    @Autowired(required = false)
     private ProfesorServicio profesorServicio;
-    @Autowired
+    @Autowired(required = false)
     private EstudianteServicio estudianteServicio;
     @Getter
     @Setter
     private boolean admin;
     @Getter
     @Setter
-    private String email, password;
+    private String email, password,nombre;
+    @Getter
+    @Setter
+    private Integer edad;
     @Getter
     @Setter
     private Profesor profesorSesion;
+    @Getter @Setter
+    private int rol;
 
     public String iniciarSesion() throws Exception {
         if (!email.isEmpty() && !password.isEmpty()) {
@@ -44,9 +49,11 @@ public class SeguridadBean implements Serializable {
                 if (esProfe()) {
                     profesorSesion = profesorServicio.login(email, password);
                     admin = true;
+                    rol=2;
                 } else {
                     estudiante = estudianteServicio.login(email, password);
                     autenticado = true;
+                    rol=1;
                 }
                 return "/index?faces-redirect=true";
             } catch (Exception e) {
@@ -77,4 +84,6 @@ public class SeguridadBean implements Serializable {
     public boolean estaLogueado() {
         return autenticado || admin;
     }
+
+
 }

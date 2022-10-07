@@ -46,6 +46,7 @@ public class Persona implements Serializable{
     private String password;
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

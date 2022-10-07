@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -15,8 +14,7 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Pregunta implements Serializable {
-
+public class Calificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -30,19 +28,8 @@ public class Pregunta implements Serializable {
     @Column(length = 100,nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
-    private Boolean esVisible;
 
-    @OneToMany(mappedBy = "pregunta")
+    @OneToMany(mappedBy = "calificacion")
     @ToString.Exclude
-    private List<Opcion> opcionList;
-
-
-    @ManyToMany
-    @ToString.Exclude
-    private List<Prueba> pruebas;
-
-    @ManyToOne
-    @ToString.Exclude
-    private Categorias categoria;
+    private List<Prueba> pruebaList;
 }

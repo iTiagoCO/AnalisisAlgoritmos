@@ -1,20 +1,17 @@
-package co.edu.uniquindio.proyecto.filtro;
+package co.edu.uniquindio.proyecto.config;
 
 import co.edu.uniquindio.proyecto.bean.SeguridadBean;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import java.io.IOException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class SeguridadFiltro implements Filter {
+public class SeguridadFilter implements Filter {
 
 
-    public static final String PAGINA_INICIO = "/index.xhtml";
+    public static final String PAGINA_INICIO = "../webApp/index.xhtml";
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -26,7 +23,7 @@ public class SeguridadFiltro implements Filter {
             final HttpServletResponse response = (HttpServletResponse) servletResponse;
             final String requestURI = request.getRequestURI();
             //Aplicar el filtro a esta carpeta
-            if (requestURI.startsWith("/estudiante/")) {
+            if (requestURI.startsWith("../webApp/estudiante/")) {
                 //Obtenemos el objeto seguridadBean de la sesión actual
                 SeguridadBean userManager = (SeguridadBean)
                         request.getSession().getAttribute("seguridadBean");

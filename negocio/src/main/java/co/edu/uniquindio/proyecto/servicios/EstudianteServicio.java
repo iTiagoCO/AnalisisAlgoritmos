@@ -4,7 +4,6 @@ import co.edu.uniquindio.proyecto.entidades.Estudiante;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-@Service
 public interface EstudianteServicio {
     Estudiante login(String email, String password) throws Exception;
 

@@ -39,6 +39,10 @@ public class Prueba implements Serializable {
     @ToString.Exclude
     private List<Prueba_Estudiante> prueba_estudianteList;
 
+    @ManyToOne
+    @ToString.Exclude
+    private Calificacion calificacion;
+
     public Prueba() {
         super();
     }

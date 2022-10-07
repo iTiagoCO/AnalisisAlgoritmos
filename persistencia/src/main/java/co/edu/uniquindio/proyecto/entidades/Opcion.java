@@ -24,7 +24,7 @@ public class Opcion implements Serializable {
 
     @PositiveOrZero
     @Column(nullable = false)
-    private int valor;
+    private Integer valor;
 
     @Column(nullable = false)
     private Boolean esCorrecta;

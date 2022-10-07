@@ -3,6 +3,7 @@ import co.edu.uniquindio.proyecto.entidades.Estudiante;
 import co.edu.uniquindio.proyecto.servicios.EstudianteServicio;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +20,15 @@ public class UsuarioBean implements Serializable {
     @Getter @Setter
     private Estudiante estudiante;
 
-    private final EstudianteServicio estudianteServicio;
+    @Getter
+    @Setter
+    private String email, password,nombre;
+    @Getter
+    @Setter
+    private Integer edad;
+
+    @Autowired(required = false)
+    private EstudianteServicio estudianteServicio;
 
 
     public UsuarioBean(EstudianteServicio estudianteServicio) {
@@ -40,9 +49,8 @@ public class UsuarioBean implements Serializable {
             FacesMessage msg= new FacesMessage (FacesMessage.SEVERITY_INFO, "Alerta", "Registro Exitoso");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
-            e.printStackTrace();
-            FacesMessage msg= new FacesMessage (FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("register-bean", fm);
         }
     }
 }
