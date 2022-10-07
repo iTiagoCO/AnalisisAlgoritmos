@@ -12,53 +12,7 @@
     <ui:define name="title">Inicio</ui:define>
     <ui:define name="content">
 
-        <h:form id="form">
-            <div class="card crud-demo">
-                <p:growl id="messages" showDetail="true"/>
 
-
-
-                <p:dataTable id="dt-products" widgetVar="dtProducts" var="producto" value="#{inicioBean.productos}"
-                             reflow="true" styleClass="products-table"  rowKey="#{producto.cod}" paginator="true" rows="10" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        <div class="products-table-header">
-                            <span style="font-weight: bold">PRODUCTOS</span>
-
-                            <span class="filter-container ui-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Buscar"/>
-                    </span>
-
-                        </div>
-                    </f:facet>
-
-                    <p:column headerText="Codigo" sortBy="#{producto.cod}" filterBy="#{producto.cod}">
-                        <h:outputText value="#{producto.cod}"/>
-                    </p:column>
-                    <p:column headerText="Nombre" sortBy="#{producto.nombre}" filterBy="#{producto.nombre}">
-                        <h:outputText value="#{producto.nombre}"/>
-                    </p:column>
-
-                    <p:column headerText="Precio" sortBy="#{producto.precio}" filterBy="#{producto.precio}">
-                        <h:outputText value="$#{producto.precio}"/>
-                    </p:column>
-
-                    <p:column headerText="Categoria" filterBy="#{producto.categorias.get(i).nombre}" sortBy="#{producto.categorias.get(i).nombre}">
-                    <ui:repeat value="#{producto.categorias}" var="categoria">
-                        <h:outputText value="#{categoria.nombre}"/>
-                    </ui:repeat>
-                    </p:column>
-                    <p:column>
-                        <p:graphicImage url="../uploads/#{producto.imagenPrincipal}" height="80x60"/>
-                    </p:column>
-                    <p:column>
-                        <p:commandButton value="Ver detalle" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" action="#{inicioBean.irDetalle(producto.cod)}" />
-
-                    </p:column>
-                </p:dataTable>
-
-            </div>
-        </h:form>
 
 
 

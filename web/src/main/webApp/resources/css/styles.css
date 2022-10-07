@@ -6,6 +6,18 @@
     font-weight: bold
 }
 
+.favorite {
+    background-image : url("#{resource['primefaces:rating/rating.png']}");
+    background-position: 0 -32px;
+    background-repeat: no-repeat;
+    height: 15px;
+    width: 16px;
+    display: inline-block;
+}
+.favorite-on {
+    background-position: 0 -48px;
+}
+
 .product-details {
     padding: 10px
 }

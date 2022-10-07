@@ -4,7 +4,10 @@ import co.edu.uniquindio.proyecto.entidades.Estudiante;
 import co.edu.uniquindio.proyecto.repositorios.EstudianteRepo;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.util.List;
+import java.util.Optional;
 
 public class EstudianteServicioImpl implements EstudianteServicio{
 
@@ -29,5 +32,36 @@ public class EstudianteServicioImpl implements EstudianteServicio{
     @Override
     public Estudiante obtenerUsuario(int parseInt) {
         return estudianteRepo.getById(parseInt);
+    }
+
+    @Override
+    public Estudiante registrarEstudiante(Estudiante u) throws Exception {
+
+        Optional<Estudiante> buscado = estudianteRepo.findById(u.getCod());
+        if(buscado.isPresent()){
+
+            FacesMessage msg= new FacesMessage (FacesMessage.SEVERITY_WARN, "Alerta", "El codigo del usuario ya existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+            throw new Exception("El codigo del usuario ya existe");
+        }
+
+        buscado= buscarPorEmail(u.getEmail());
+        if(buscado.isPresent()){
+            FacesMessage msg= new FacesMessage (FacesMessage.SEVERITY_WARN, "Alerta", "El email del usuario ya existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            throw new Exception("El email del usuario ya existe");
+        }
+
+        return estudianteRepo.save(u);
+    }
+
+    private Optional<Estudiante> buscarPorEmail(String email){
+        return estudianteRepo.findByEmail(email);
+    }
+
+    @Override
+    public List<Estudiante> listarEstudiantes() {
+        return estudianteRepo.findAll();
     }
 }
