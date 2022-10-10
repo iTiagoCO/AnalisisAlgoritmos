@@ -26,6 +26,9 @@ public class Opcion implements Serializable {
     @Column(nullable = false)
     private Integer valor;
 
+    @Column(length = 100,nullable = false)
+    private String descripcion;
+
     @Column(nullable = false)
     private Boolean esCorrecta;
 
@@ -34,7 +37,15 @@ public class Opcion implements Serializable {
     @ToString.Exclude
     private Pregunta pregunta;
 
-    @OneToMany(mappedBy = "opcion")
-    @ToString.Exclude
-    private List<Respuesta> respuestaList;
+
+    public Opcion(Integer cod, Integer valor, Boolean esCorrecta, Pregunta pregunta) {
+        this.cod = cod;
+        this.valor = valor;
+        this.esCorrecta = esCorrecta;
+        this.pregunta = pregunta;
+    }
+
+    public Opcion() {
+
+    }
 }

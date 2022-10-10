@@ -34,9 +34,5 @@ public class Prueba_Estudiante implements Serializable {
     private Prueba prueba;
 
 
-    @OneToMany(mappedBy = "prueba_estudiante")
-    @ToString.Exclude
-    private List<Respuesta> respuestaList;
-
 
 }

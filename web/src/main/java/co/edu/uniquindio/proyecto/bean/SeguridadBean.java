@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.entidades.Estudiante;
+import co.edu.uniquindio.proyecto.entidades.Persona;
 import co.edu.uniquindio.proyecto.entidades.Profesor;
 import co.edu.uniquindio.proyecto.servicios.EstudianteServicio;
 import co.edu.uniquindio.proyecto.servicios.ProfesorServicio;
@@ -20,6 +21,9 @@ public class SeguridadBean implements Serializable {
     @Getter
     @Setter
     private Estudiante estudiante;
+    @Getter
+    @Setter
+    Persona persona;
     @Getter
     @Setter
     private boolean autenticado;

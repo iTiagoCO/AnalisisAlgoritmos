@@ -8,35 +8,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class SeguridadFilter implements Filter {
-
-
+public class SeguridadFilter {
+    //implements Filter
+    /*
     public static final String PAGINA_INICIO = "../webApp/index.xhtml";
 
     @Override
-    public void doFilter(ServletRequest servletRequest,
-
-                         ServletResponse servletResponse, FilterChain filterChain) {
-
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
             final HttpServletRequest request = (HttpServletRequest) servletRequest;
             final HttpServletResponse response = (HttpServletResponse) servletResponse;
             final String requestURI = request.getRequestURI();
+
+            SeguridadBean userManager = (SeguridadBean)
+                    request.getSession().getAttribute("seguridadBean");
             //Aplicar el filtro a esta carpeta
-            if (requestURI.startsWith("../webApp/estudiante/")) {
+            if (requestURI.startsWith("../webApp/estudiante/") ) {
                 //Obtenemos el objeto seguridadBean de la sesión actual
-                SeguridadBean userManager = (SeguridadBean)
-                        request.getSession().getAttribute("seguridadBean");
 
                 if (userManager != null) {
-                    if (userManager.estaLogueado()) {
-                        //El usuario está logueado entonces si puede ver la página
-
+                    if (userManager.isAutenticado() && userManager.getRol()==1) {
+                        //El usuario está logueado entonces si puede ver la página solicitada
 
                         filterChain.doFilter(servletRequest, servletResponse);
                     } else {
-                        //El usuario no está logueado, entonces se redirecciona al
-
+                        //El usuario no está logueado, entonces se redirecciona al     inicio
 
                         response.sendRedirect(request.getContextPath() + PAGINA_INICIO);
                     }
@@ -44,9 +40,20 @@ public class SeguridadFilter implements Filter {
                     //El usuario no está logueado, entonces se redirecciona al inicio
                     response.sendRedirect(request.getContextPath() + PAGINA_INICIO);
                 }
-            } else {
-                //La página solicitada no está en la carpeta /usuario entonces el filtro no
+            }
+            else if (requestURI.startsWith("../webApp/profesor/") ) {
+                if (userManager != null) {
+                    if (userManager.isAutenticado() && userManager.getRol()==2) {
+                        filterChain.doFilter(servletRequest, servletResponse);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + PAGINA_INICIO);
+                    }
+                } else {
+                    response.sendRedirect(request.getContextPath() + PAGINA_INICIO);
+                }
 
+            } else{
+                //La página solicitada no está en la carpeta entonces el filtro no aplica
 
                 filterChain.doFilter(servletRequest, servletResponse);
             }
@@ -54,4 +61,7 @@ public class SeguridadFilter implements Filter {
             e.printStackTrace();
         }
     }
+
+*/
+
 }
