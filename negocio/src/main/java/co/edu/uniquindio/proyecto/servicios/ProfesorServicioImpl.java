@@ -49,15 +49,6 @@ public class ProfesorServicioImpl implements ProfesorServicio {
 
             throw new Exception("El codigo del usuario ya existe");
         }
-
-        buscado = buscarPorEmail(u.getEmail());
-        if (buscado.isPresent()) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "El email del usuario ya existe");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            throw new Exception("El email del usuario ya existe");
-        }
-
-
         return profeRepo.save(u);
     }
 
@@ -83,12 +74,12 @@ public class ProfesorServicioImpl implements ProfesorServicio {
 
     @Override
     public Opcion obtenerOpcion(Integer codigo) throws Exception {
-        return opcionRepo.getById(codigo);
+        return opcionRepo.findById(codigo).orElse(null);
     }
 
     @Override
     public Categorias obtenerCategoria(Integer cod) {
-        return categoriaRepo.getById(cod);
+        return categoriaRepo.findById(cod).orElse(null);
     }
 
     @Override

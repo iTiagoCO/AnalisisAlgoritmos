@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -23,6 +24,8 @@ public class Prueba implements Serializable {
     @EqualsAndHashCode.Include
     private Integer cod;
 
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 
     @ManyToOne
     @ToString.Exclude

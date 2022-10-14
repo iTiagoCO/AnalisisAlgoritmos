@@ -61,6 +61,11 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
         <div class="px-3 py-2 border-bottom mb-3">
             <div class="container d-flex flex-wrap justify-content-center">
 
@@ -72,12 +77,12 @@
                     <h:form rendered="#{!seguridadBean.estaLogueado()}">
                         <p:commandButton styleClass="ui-button-raised ui-button-success" icon="pi pi-user"
                                          iconPos="left" value="Login" onclick="PF('login').show()"
-                                         rendered="#{!SeguridadBean.autenticado}" />
+                                         rendered="#{!seguridadBean.autenticado}" />
                         <span>   </span>
 
                     </h:form>
                     <div jsf:rendered="#{seguridadBean.autenticado}">
-                        <span> Hola! #{seguridadBean.usuario.nombre}</span>
+                        <span> Hola! #{seguridadBean.estudiante.nombre}</span>
                         <h:form>
                             <p:commandButton value="Cerrar Sesion" styleClass="ui-button-raised ui-button-warning" icon="pi pi-user" action="#{seguridadBean.cerrarSesion}"/>
                         </h:form>

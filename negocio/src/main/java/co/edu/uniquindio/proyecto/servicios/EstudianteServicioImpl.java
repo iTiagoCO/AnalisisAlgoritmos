@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.Estudiante;
+import co.edu.uniquindio.proyecto.entidades.Profesor;
 import co.edu.uniquindio.proyecto.repositorios.EstudianteRepo;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class EstudianteServicioImpl implements EstudianteServicio{
 
     @Override
     public Estudiante login(String email, String password) throws Exception {
-        return estudianteRepo.findByEmailAndPassword(email,password).orElseThrow(() -> new Exception("Los datos de autenticación son incorrectos"));
+        return (Estudiante) estudianteRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new Exception("Los datos de autenticación son incorrectos"));
 }
 
     @Override

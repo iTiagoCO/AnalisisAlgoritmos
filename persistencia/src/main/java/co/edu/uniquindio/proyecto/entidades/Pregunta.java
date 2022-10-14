@@ -23,12 +23,13 @@ public class Pregunta implements Serializable {
     private Integer cod;
 
     @NotBlank
-    @Column(length = 50,nullable = false)
+    @Column(length = 50, nullable = false)
     private String titulo;
 
 
-    @Column(length = 100,nullable = false)
+    @Column(length = 100, nullable = false)
     private String descripcion;
+
 
     @Column(nullable = false)
     private Boolean esVisible;
@@ -45,4 +46,19 @@ public class Pregunta implements Serializable {
     @ManyToOne
     @ToString.Exclude
     private Categorias categoria;
+
+
+    public Pregunta(Integer cod, String titulo, String descripcion, Boolean esVisible, List<Opcion> opcionList, List<Prueba> pruebas, Categorias categoria) {
+        this.cod = cod;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.esVisible = esVisible;
+        this.opcionList = opcionList;
+        this.pruebas = pruebas;
+        this.categoria = categoria;
+    }
+
+    public Pregunta() {
+
+    }
 }

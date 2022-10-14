@@ -8,6 +8,7 @@ import co.edu.uniquindio.proyecto.servicios.ProfesorServicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import javax.faces.application.FacesMessage;
@@ -27,9 +28,9 @@ public class SeguridadBean implements Serializable {
     @Getter
     @Setter
     private boolean autenticado;
-    @Autowired(required = false)
+    @Autowired()
     private ProfesorServicio profesorServicio;
-    @Autowired(required = false)
+    @Autowired()
     private EstudianteServicio estudianteServicio;
     @Getter
     @Setter
@@ -46,23 +47,24 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private int rol;
 
+    @Autowired
+    private ApplicationContext context;
+
     public String iniciarSesion() throws Exception {
         if (!email.isEmpty() && !password.isEmpty()) {
 
             try {
-                if (esProfe()) {
+                if(esProfe()) {
                     profesorSesion = profesorServicio.login(email, password);
                     admin = true;
-                    rol=2;
                 } else {
                     estudiante = estudianteServicio.login(email, password);
                     autenticado = true;
-                    rol=1;
                 }
                 return "/index?faces-redirect=true";
             } catch (Exception e) {
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
-                FacesContext.getCurrentInstance().addMessage("login-bean", fm);
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alerta",e.getMessage());
+                FacesContext.getCurrentInstance().addMessage("login-bean",fm);
             }
         }
         return null;

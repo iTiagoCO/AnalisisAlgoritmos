@@ -26,6 +26,7 @@ public class CategoriaConverter implements Converter<Categorias>, Serializable {
         return null;
     }
 
+
     @Override
     public String getAsString(FacesContext context, UIComponent component, Categorias value) {
         if(value != null){

@@ -15,50 +15,35 @@
 
         <div class="card crud-demo">
             <h:form id="form">
-                <p:growl id="messages" showDetail="true"/>
-
                 <p:toolbar>
                     <p:toolbarGroup>
-                        <p:commandButton value="Nueva" icon="pi pi-plus" actionListener="#{crudView.openNew}"
-                                         update=":dialogs:manage-product-content"
-                                         oncomplete="PF('manageProductDialog').show()"
-                                         styleClass="ui-button-success" style="margin-right: .5rem">
-                            <p:resetInput target=":dialogs:manage-product-content"/>
-                        </p:commandButton>
-                        <p:commandButton id="delete-products-button" value="#{crudView.deleteButtonMessage}"
-                                         icon="pi pi-trash" actionListener="#{crudView.deleteSelectedProducts}"
-                                         styleClass="ui-button-danger" disabled="#{!crudView.hasSelectedProducts()}"
+
+                        <p:commandButton value="Nueva" onclick="PF('manageProductDialog').show()" update="@form"
+                                         icon="pi pi-plus"/>
+                        <p:growl for="msjBean" showDetail="true"/>
+                        <p:commandButton id="delete-products-button" value="#{crudViewBean.deleteButtonMessage}"
+                                         icon="pi pi-trash" actionListener="#{crudViewBean.deleteSelectedProducts}"
+                                         styleClass="ui-button-danger" disabled="#{!crudViewBean.hasSelectedProducts()}"
                                          update="@this">
                             <p:confirm header="Confirmation" message="Delete the selected products?"
                                        icon="pi pi-exclamation-triangle"/>
                         </p:commandButton>
                     </p:toolbarGroup>
                     <p:toolbarGroup align="right">
-                        <p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>
                         <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
                             <p:dataExporter type="pdf" target="dt-products" fileName="products"/>
                         </p:commandButton>
                     </p:toolbarGroup>
+
                 </p:toolbar>
 
-                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{crudView.preguntasList}"
-                             reflow="true" styleClass="products-table" selection="#{crudView.selectedPreguntas}"
+
+                <p:growl id="messages" showDetail="true"/>
+
+
+                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{crudViewBean.preguntasList}"
+                             reflow="true" styleClass="products-table" selection="#{crudViewBean.selectedPreguntas}"
                              paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
-                    <f:facet name="header">
-                        <div class="products-table-header">
-
-                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
-                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Buscar"/>
-                    </span>
-                        </div>
-                    </f:facet>
-
-                    <p:ajax event="rowSelect" update=":form:delete-products-button"/>
-                    <p:ajax event="rowUnselect" update=":form:delete-products-button"/>
-                    <p:ajax event="rowSelectCheckbox" update=":form:delete-products-button"/>
-                    <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button"/>
-                    <p:ajax event="toggleSelect" update=":form:delete-products-button"/>
-
 
 
                     <p:column headerText="Code" sortBy="#{product.cod}" filterBy="#{product.cod}">
@@ -80,13 +65,13 @@
                         <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
                                          oncomplete="PF('manageProductDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-success" process="@this">
-                            <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedPreguntas}"/>
+                            <f:setPropertyActionListener value="#{product}" target="#{crudViewBean.selectedPreguntas}"/>
                             <p:resetInput target=":dialogs:manage-product-content"/>
                         </p:commandButton>
                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteProductDialog').show()">
-                            <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
+                            <f:setPropertyActionListener value="#{product}" target="#{crudViewBean.selectedProduct}"/>
                         </p:commandButton>
                     </p:column>
 
@@ -94,120 +79,115 @@
             </h:form>
 
 
-            <h:form id="dialogs">
-                <p:dialog header="Detalles de pregunta" showEffect="fade" modal="true" widgetVar="manageProductDialog"
-                          responsive="true">
-                    <p:outputPanel id="manage-product-content" class="ui-fluid">
-                        <p:outputPanel rendered="#{not empty crudView.selectedProduct}">
-                            <div class="field">
-                                <p:outputLabel for="name">Titulo</p:outputLabel>
-                                <p:inputText id="name" value="#{crudView.selectedProduct.titulo}" required="true"/>
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="description">Descripcion</p:outputLabel>
-                                <p:inputTextarea id="description" value="#{crudView.selectedProduct.descripcion}"/>
-                            </div>
+            <p:dialog header="Crear pregunta" showEffect="fade" modal="true" id="dialogPregunta"
+                      widgetVar="manageProductDialog">
+
+                <h:form id="dialogs">
+
+                    <h:panelGrid columns="1" cellpadding="2">
+
+                        <p:outputLabel value="Codigo:" for="codigoPr"/>
+                        <p:inputText type="number" id="codigoPr" value="#{crudViewBean.pregunta.cod}"
+                                     required="true"/>
+                        <p:message for="codigoPr"/>
+
+                        <p:outputLabel value="Titulo:" for="tituloPregunta"/>
+                        <p:inputText type="text" id="tituloPregunta" value="#{crudViewBean.pregunta.titulo}"
+                                     required="true"/>
+                        <p:message for="tituloPregunta"/>
+
+                        <p:outputLabel value="Descripcion:" for="descripcionPregunta"/>
+                        <p:inputText type="text" id="descripcionPregunta" value="#{crudViewBean.pregunta.descripcion}"
+                                     required="true"/>
+                        <p:message for="descripcionPregunta"/>
 
 
-                            <div class="field">
-                                <p:outputLabel value="Categoria(s):" for="categoriasList"/>
-                                <br/>
-                                <p:selectManyCheckbox id="categoriasList" value="#{crudView.categoriasList}" required="true" converter="#{categoriaConverter}">
-                                    <br/>
-                                    <f:selectItems var="categorias" itemLabel="#{categorias.titulo}" value="#{crudView.categoriasList}" />
-                                </p:selectManyCheckbox>
-                                <p:message for="categoriasList"/>
-                            </div>
+                        <p:outputLabel value="Categoria(s):" for="categoriasList"/>
+                        <p:selectOneMenu id="categoriasList" value="#{crudViewBean.pregunta.categoria}"
+                                         required="true" converter="#{categoriaConverter}">
+                            <f:selectItem itemLabel="Seleccione la categoria"/>
+                            <f:selectItems var="categorias" itemLabel="#{categorias.titulo}"
+                                           value="#{crudViewBean.categoriasList}"/>
+                        </p:selectOneMenu>
+                        <p:message for="categoriasList"/>
+
+                        <p:outputLabel value="Pregunta activa?:"/>
+                        <p:selectBooleanCheckbox id="activaPr" value="#{crudViewBean.value}"
+                                                 itemLabel="Marcar / Desmarcar"/>
 
 
-                            <div class="field">
-                                <p:outputLabel value="Opcion(es):" for="opcionList"/>
-                                <br/>
-                                <p:selectManyCheckbox id="opcionList" value="#{crudView.selectedProduct.opcionList}" required="true" converter="#{opcionConverter}">
-                                    <br/>
-                                    <f:selectItems var="opciones" itemLabel="#{opciones.descripcion}" value="#{crudView.selectedProduct.opcionList}" />
-                                </p:selectManyCheckbox>
-                                <p:message for="opcionList"/>
-                            </div>
+                        <p:outputLabel value="Opciones"/>
+                        <p:selectOneListbox id="opcionesList" value="#{crudViewBean.opcionList}"
+                                            required="true" converter="#{opcionConverter}">
+                            <f:selectItems var="opcion" itemLabel="#{opcion.descripcion}"
+                                           value="#{crudViewBean.opcionList}"/>
+                        </p:selectOneListbox>
 
 
-                            <div class="formgrid grid">
-                                <div class="field col">
-                                    <h5>¿Pregunta activa?</h5>
-                                    <br/>
-                                    <p:selectBooleanCheckbox value="#{crudView.value}" itemLabel="Marcar / Desmarcar"/>
-                                </div>
-                            </div>
-                            <br/>
-                            <h5>Opciones</h5>
-                            <p:dataTable id="products" widgetVar="products" var="product" value="#{crudView.selectedProduct.opcionList}"
-                                         editable="true">
-                                <f:selectItem itemLabel="#{product.titulo}" itemValue="#{product.titulo}"/>
-                            </p:dataTable>
-                        </p:outputPanel>
-                    </p:outputPanel>
-
-                    <f:facet name="footer">
-                        <br/>
-                        <p:commandButton onclick="PF('crearOpcion').show()" update="@form" value="Crear opcion"  icon="pi pi-plus"/>
-                        <br/>
-
-
-                        <p:growl for="msjBean" showDetail="true"/>
-                        <br/>
-                        <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{crudView.savePregunta}"
-                                         update="manage-product-content" process="manage-product-content @this"/>
-                        <br/>
-                        <br/>
-                        <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
-                                         class="ui-button-secondary" type="button"/>
-                    </f:facet>
-                </p:dialog>
-
-
-                <p:dialog header="Crear Opcion" widgetVar="crearOpcion" modal="true" showEffect="fade"
-                          draggable="false">
-                    <h:form>
-                        <h:panelGrid columns="3" cellpadding="5">
-
-
-                            <p:outputLabel value="Descripcion:" for="descripcionOpcion"/>
-                            <p:inputText type="text" id="descripcionOpcion" value="#{crudView.opcion.descripcion}"
-                                         required="true"/>
-                            <p:message for="descripcionOpcion"/>
-
-                            <p:outputLabel value="Valor:" for="valorOpcion"/>
-                            <p:inputText type="number" id="valorOpcion" value="#{crudView.opcion.valor}"
-                                         required="true"/>
-                            <p:message for="valorOpcion"/>
-
-                            <p:outputLabel value="¿Es correcta?:"/>
-                            <p:selectBooleanCheckbox value="#{crudView.value2}" itemLabel="Marcar / Desmarcar"/>
-
-                        </h:panelGrid>
                         <div align="center">
-                            <p:commandButton action="#{crudView.crearOpcion}" value="Guardar opcion de respuesta" update="@form" icon="pi pi-check"/>
+                            <br/>
+                            <p:commandButton onclick="PF('crearOpcion').show()" value="Crear opcion"
+                                             icon="pi pi-plus"/>
+                            <p:growl for="msjBean" showDetail="true"/>
+
+                            <p:commandButton action="#{crudViewBean.savePregunta}" value="Crear pregunta"
+                                             icon="pi pi-check" type="submit" id="submitButton"
+                                             process="@this"/>
+                            <p:growl for="msjBean" showDetail="true"/>
+                            <p:commandButton value="Cancelar" icon="pi pi-times"
+                                             onclick="PF('manageProductDialog').hide()"
+                                             class="ui-button-secondary" type="button"/>
+                            <p:growl for="msjBean" showDetail="true"/>
+                        </div>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+
+            <p:dialog header="Crear Opcion" widgetVar="crearOpcion" modal="true" showEffect="fade"
+                      draggable="false">
+                <h:form>
+                    <h:panelGrid columns="3" cellpadding="5">
+
+
+                        <p:outputLabel value="Codigo:" for="codigoOpcion"/>
+                        <p:inputText type="text" id="codigoOpcion" value="#{crudViewBean.opcion.cod}"
+                                     required="true"/>
+                        <p:message for="codigoOpcion"/>
+
+
+                        <p:outputLabel value="Descripcion:" for="descripcionOpcion"/>
+                        <p:inputText type="text" id="descripcionOpcion" value="#{crudViewBean.opcion.descripcion}"
+                                     required="true"/>
+                        <p:message for="descripcionOpcion"/>
+
+                        <p:outputLabel value="Valor:" for="valorOpcion"/>
+                        <p:inputText type="number" id="valorOpcion" value="#{crudViewBean.opcion.valor}"
+                                     required="true"/>
+                        <p:message for="valorOpcion"/>
+
+                        <p:outputLabel value="¿Es correcta?:" for="esCorrecta"/>
+                        <p:selectBooleanCheckbox id="esCorrecta" value="#{crudViewBean.value2}"
+                                                 itemLabel="Marcar / Desmarcar"/>
+                        <p:message for="esCorrecta"/>
+
+                        <div align="center">
+                            <p:commandButton action="#{crudViewBean.crearOpcion}" id="selectedItemText"
+                                             value="Guardar opcion de respuesta"
+                                             update="dialogs" icon="pi pi-check"/>
                         </div>
                         <p:growl for="msjBean" showDetail="true"/>
-                    </h:form>
-                </p:dialog>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
 
 
-                <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
-                                 message="Delete the product?" header="Confirm" severity="warn">
-                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{crudView.deleteProduct}"
-                                     process="@this" update=":form:delete-products-button"
-                                     oncomplete="PF('deleteProductDialog').hide()"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                     onclick="PF('deleteProductDialog').hide()"/>
-                </p:confirmDialog>
+            <p:confirmDialog global="true" showEffect="fade" width="300">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                 icon="pi pi-times"/>
+            </p:confirmDialog>
 
-                <p:confirmDialog global="true" showEffect="fade" width="300">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
-                                     icon="pi pi-times"/>
-                </p:confirmDialog>
-            </h:form>
         </div>
 
 
