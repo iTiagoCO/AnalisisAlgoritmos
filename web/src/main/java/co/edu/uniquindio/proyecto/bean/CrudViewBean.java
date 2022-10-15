@@ -15,9 +15,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,6 @@ import java.util.List;
 
 @Component
 @ViewScoped
-@Getter
-@Setter
 public class CrudViewBean implements Serializable {
 
     @Value(value = "#{seguridadBean.profesorSesion}")
@@ -95,32 +94,22 @@ public class CrudViewBean implements Serializable {
 
 
     // Guardar pregunta
-    public String savePregunta() {
-
-        if(opcionList.size() > 0) {
-
-            pregunta.setEsVisible(value);
-            pregunta.setCategoria(categoria);
+    public String savePregunta() throws Exception {
 
 
-            opcionList.forEach(opc -> {
-                opc.setPregunta(pregunta);
-            });
-            pregunta.setOpcionList(opcionList);
+
+                pregunta.setEsVisible(value);
+                pregunta.setCategoria(categoria);
+                preguntasList.add(pregunta);
+                pregunta.setOpcionList(opcionList);
+
+                Pregunta p;
+
+                preguntaServicio.registrarPregunta(pregunta);
 
 
-            System.out.println("[[[[[[[[[" + pregunta.getTitulo());
-            preguntasList.add(pregunta);
 
-
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Pregunta creada con éxito");
-            FacesContext.getCurrentInstance().addMessage("msjBean", mensaje);
-
-        } else {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Es obligatorio crear opciones");
-            FacesContext.getCurrentInstance().addMessage("msjBean", mensaje);
-        }
-        return null;
+                return "bancoPrueba?faces-redirect=true";
 
 
     }
@@ -149,18 +138,18 @@ public class CrudViewBean implements Serializable {
 
 
     //Crear opcion de pregunta
-    public String crearOpcion() {
+    public void crearOpcion() {
 
         System.out.println("OPC  -------------------" + opcion.getDescripcion());
+
 
         opcion.setEsCorrecta(value2);
         opcionList.add(opcion);
         opcion = new Opcion();
 
+
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Opcion creada con éxito");
         FacesContext.getCurrentInstance().addMessage("msjBean", mensaje);
 
-
-        return null;
     }
 }

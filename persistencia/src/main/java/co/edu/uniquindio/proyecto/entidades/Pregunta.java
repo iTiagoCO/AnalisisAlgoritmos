@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +10,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString(callSuper = true)
+@ToString
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pregunta implements Serializable {
 
@@ -48,17 +46,4 @@ public class Pregunta implements Serializable {
     private Categorias categoria;
 
 
-    public Pregunta(Integer cod, String titulo, String descripcion, Boolean esVisible, List<Opcion> opcionList, List<Prueba> pruebas, Categorias categoria) {
-        this.cod = cod;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.esVisible = esVisible;
-        this.opcionList = opcionList;
-        this.pruebas = pruebas;
-        this.categoria = categoria;
-    }
-
-    public Pregunta() {
-
-    }
 }

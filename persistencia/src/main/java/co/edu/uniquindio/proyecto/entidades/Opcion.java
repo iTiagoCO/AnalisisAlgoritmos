@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString(callSuper = true)
+@ToString()
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Opcion implements Serializable {
 

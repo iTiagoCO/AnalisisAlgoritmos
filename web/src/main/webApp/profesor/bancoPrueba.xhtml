@@ -111,6 +111,8 @@
                         </p:selectOneMenu>
                         <p:message for="categoriasList"/>
 
+
+
                         <p:outputLabel value="Pregunta activa?:"/>
                         <p:selectBooleanCheckbox id="activaPr" value="#{crudViewBean.value}"
                                                  itemLabel="Marcar / Desmarcar"/>
@@ -132,7 +134,7 @@
 
                             <p:commandButton action="#{crudViewBean.savePregunta}" value="Crear pregunta"
                                              icon="pi pi-check" type="submit" id="submitButton"
-                                             process="@this"/>
+                                             process="@this" update="dialogs"/>
                             <p:growl for="msjBean" showDetail="true"/>
                             <p:commandButton value="Cancelar" icon="pi pi-times"
                                              onclick="PF('manageProductDialog').hide()"
