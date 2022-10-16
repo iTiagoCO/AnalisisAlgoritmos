@@ -69,7 +69,6 @@ public class ProfesorBean implements Serializable {
 
         Estudiante estudiante = (Estudiante) value;
         return estudiante.getNombre().toLowerCase().contains(filterText)
-                || estudiante.getFechaPresentacion().toString().toLowerCase().contains(filterText)
                 || estudiante.getStatus().getTitulo().toLowerCase().contains(filterText)
                 || estudiante.getPromedio() < filterInt;
     }

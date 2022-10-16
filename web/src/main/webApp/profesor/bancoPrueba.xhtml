@@ -62,11 +62,11 @@
                     </p:column>
 
                     <p:column exportable="false">
-                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                        <p:commandButton icon="pi pi-pencil" update=""
                                          oncomplete="PF('manageProductDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-success" process="@this">
                             <f:setPropertyActionListener value="#{product}" target="#{crudViewBean.selectedPreguntas}"/>
-                            <p:resetInput target=":dialogs:manage-product-content"/>
+                            <p:resetInput target=""/>
                         </p:commandButton>
                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                          process="@this"

@@ -31,8 +31,6 @@ public class Estudiante extends Persona implements Serializable {
     private Integer edad;
 
 
-    @Column()
-    private LocalDateTime fechaPresentacion;
 
 
     @PositiveOrZero
