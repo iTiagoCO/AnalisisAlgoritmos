@@ -17,6 +17,7 @@ public interface ProfesorServicio {
 
     public List<Opcion> obtenerOpciones(int parseInt);
     Opcion obtenerOpcion (Integer codigo) throws Exception;
+    Opcion registrarOpcion (Opcion opcion) throws Exception;
 
     Categorias obtenerCategoria (Integer codigo) throws Exception;
     public List<Categorias> obtenerCategorias();

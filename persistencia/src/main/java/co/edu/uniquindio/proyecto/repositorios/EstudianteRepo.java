@@ -4,10 +4,12 @@ import co.edu.uniquindio.proyecto.entidades.Estudiante;
 import co.edu.uniquindio.proyecto.entidades.Prueba_Estudiante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface EstudianteRepo extends JpaRepository<Estudiante,Integer> {
 
     List<Estudiante> findAllByNombreContains(String nombre);

@@ -24,12 +24,6 @@ public class PreguntaServicioImpl implements PreguntaServicio{
 
     @Override
     public Pregunta registrarPregunta(Pregunta u) throws Exception {
-        Pregunta usuarioBuscadoCedula = obtenerPregunta(u.getCod());
-
-        if (usuarioBuscadoCedula != null){
-            throw new Exception("El código de pregunta ya esta registrado");
-        }
-
         return preguntaRepo.save(u);
     }
 

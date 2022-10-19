@@ -35,9 +35,10 @@ public class CrudViewBean implements Serializable {
     private boolean value, value2;
 
     @Autowired
-    PreguntaServicio preguntaServicio;
+    private PreguntaServicio preguntaServicio;
     @Autowired
-    ProfesorServicio profesorServicio;
+    private ProfesorServicio profesorServicio;
+
 
     @Getter
     @Setter
@@ -72,6 +73,8 @@ public class CrudViewBean implements Serializable {
     @Setter
     private Categorias categoria;
 
+    @Getter
+    @Setter
     private List<Pregunta> selectedPreguntas;
 
 
@@ -80,6 +83,7 @@ public class CrudViewBean implements Serializable {
         opcion = new Opcion();
         pregunta = new Pregunta();
         opcionList = new ArrayList<>();
+        categoria = new Categorias();
         preguntasList = preguntaServicio.preguntasList();
         categoriasList = profesorServicio.obtenerCategorias();
     }
@@ -94,24 +98,38 @@ public class CrudViewBean implements Serializable {
 
 
     // Guardar pregunta
-    public String savePregunta() throws Exception {
+    public String savePregunta() {
 
+        try {
+            System.out.println(pregunta);
+            pregunta.setEsVisible(value);
+            categoria = profesorServicio.obtenerCategoria(1);
+            pregunta.setCategoria(categoria);
+            preguntasList.add(pregunta);
+            //pregunta.setOpcionList(opcionList);
+            //preguntaServicio.registrarPregunta(pregunta);
+            Pregunta p = preguntaServicio.registrarPregunta(pregunta);
 
+            opcionList.forEach(op -> {
+                try {
+                    op.setPregunta(p);
+                    profesorServicio.registrarOpcion(op);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                    FacesContext.getCurrentInstance().addMessage("msjBeanPregunta", mensaje);
+                }
+            });
 
-                pregunta.setEsVisible(value);
-                pregunta.setCategoria(categoria);
-                preguntasList.add(pregunta);
-                pregunta.setOpcionList(opcionList);
+        } catch (Exception e) {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("msjBeanPregunta", mensaje);
+        }
 
-                Pregunta p;
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Pregunta creada");
+        FacesContext.getCurrentInstance().addMessage("msjBeanPregunta", mensaje);
 
-                preguntaServicio.registrarPregunta(pregunta);
-
-
-
-                return "bancoPrueba?faces-redirect=true";
-
-
+        return null;
     }
 
 
@@ -139,17 +157,11 @@ public class CrudViewBean implements Serializable {
 
     //Crear opcion de pregunta
     public void crearOpcion() {
-
         System.out.println("OPC  -------------------" + opcion.getDescripcion());
-
-
         opcion.setEsCorrecta(value2);
         opcionList.add(opcion);
         opcion = new Opcion();
-
-
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Opcion creada con éxito");
-        FacesContext.getCurrentInstance().addMessage("msjBean", mensaje);
-
+        FacesContext.getCurrentInstance().addMessage("msjBeanOpcion", mensaje);
     }
 }

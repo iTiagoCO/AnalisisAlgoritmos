@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.Categorias;
 import co.edu.uniquindio.proyecto.entidades.Opcion;
+import co.edu.uniquindio.proyecto.entidades.Pregunta;
 import co.edu.uniquindio.proyecto.entidades.Profesor;
 import co.edu.uniquindio.proyecto.repositorios.CategoriaRepo;
 import co.edu.uniquindio.proyecto.repositorios.OpcionRepo;
@@ -75,6 +76,12 @@ public class ProfesorServicioImpl implements ProfesorServicio {
     @Override
     public Opcion obtenerOpcion(Integer codigo) throws Exception {
         return opcionRepo.findById(codigo).orElse(null);
+    }
+
+    @Override
+    public Opcion registrarOpcion(Opcion opcion) throws Exception {
+
+        return opcionRepo.save(opcion);
     }
 
     @Override

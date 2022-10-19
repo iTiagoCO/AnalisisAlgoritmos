@@ -7,6 +7,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h1="http://java.sun.com/jsf/html">
 <ui:composition template="../WEB-INF/template.xhtml">
     <ui:define name="title">Banco de preguntas</ui:define>
@@ -18,8 +19,11 @@
                 <p:toolbar>
                     <p:toolbarGroup>
 
+
+
+
                         <p:commandButton value="Nueva" onclick="PF('manageProductDialog').show()" update="@form"
-                                         icon="pi pi-plus"/>
+                                         icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem"/>
                         <p:growl for="msjBean" showDetail="true"/>
                         <p:commandButton id="delete-products-button" value="#{crudViewBean.deleteButtonMessage}"
                                          icon="pi pi-trash" actionListener="#{crudViewBean.deleteSelectedProducts}"
@@ -68,6 +72,7 @@
                             <f:setPropertyActionListener value="#{product}" target="#{crudViewBean.selectedPreguntas}"/>
                             <p:resetInput target=""/>
                         </p:commandButton>
+
                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                          process="@this"
                                          oncomplete="PF('deleteProductDialog').show()">
@@ -79,17 +84,13 @@
             </h:form>
 
 
-            <p:dialog header="Crear pregunta" showEffect="fade" modal="true" id="dialogPregunta"
+
+            <p:dialog header="Pregunta" showEffect="fade" modal="true" id="dialogPregunta"
                       widgetVar="manageProductDialog">
 
                 <h:form id="dialogs">
 
                     <h:panelGrid columns="1" cellpadding="2">
-
-                        <p:outputLabel value="Codigo:" for="codigoPr"/>
-                        <p:inputText type="number" id="codigoPr" value="#{crudViewBean.pregunta.cod}"
-                                     required="true"/>
-                        <p:message for="codigoPr"/>
 
                         <p:outputLabel value="Titulo:" for="tituloPregunta"/>
                         <p:inputText type="text" id="tituloPregunta" value="#{crudViewBean.pregunta.titulo}"
@@ -111,35 +112,32 @@
                         </p:selectOneMenu>
                         <p:message for="categoriasList"/>
 
-
-
                         <p:outputLabel value="Pregunta activa?:"/>
                         <p:selectBooleanCheckbox id="activaPr" value="#{crudViewBean.value}"
                                                  itemLabel="Marcar / Desmarcar"/>
 
 
                         <p:outputLabel value="Opciones"/>
-                        <p:selectOneListbox id="opcionesList" value="#{crudViewBean.opcionList}"
-                                            required="true" converter="#{opcionConverter}">
-                            <f:selectItems var="opcion" itemLabel="#{opcion.descripcion}"
-                                           value="#{crudViewBean.opcionList}"/>
-                        </p:selectOneListbox>
 
+                        <div jsf:id="opcionesList">
+                            <p:repeat value="#{crudViewBean.opcionList}" var="opcion">
+                                <p>#{opcion.descripcion}</p>
+                            </p:repeat>
+                        </div>
 
                         <div align="center">
                             <br/>
                             <p:commandButton onclick="PF('crearOpcion').show()" value="Crear opcion"
                                              icon="pi pi-plus"/>
-                            <p:growl for="msjBean" showDetail="true"/>
 
-                            <p:commandButton action="#{crudViewBean.savePregunta}" value="Crear pregunta"
-                                             icon="pi pi-check" type="submit" id="submitButton"
-                                             process="@this" update="dialogs"/>
-                            <p:growl for="msjBean" showDetail="true"/>
+                            <p:commandButton action="#{crudViewBean.savePregunta}" value="Crear pregunta" onclick="PF('manageProductDialog').hide()"
+                                             icon="pi pi-check" id="submitButton" update="@form,form:dt-products" />
+
                             <p:commandButton value="Cancelar" icon="pi pi-times"
                                              onclick="PF('manageProductDialog').hide()"
                                              class="ui-button-secondary" type="button"/>
-                            <p:growl for="msjBean" showDetail="true"/>
+
+                            <p:growl for="msjBeanPregunta" showDetail="true"/>
                         </div>
                     </h:panelGrid>
                 </h:form>
@@ -150,12 +148,6 @@
                       draggable="false">
                 <h:form>
                     <h:panelGrid columns="3" cellpadding="5">
-
-
-                        <p:outputLabel value="Codigo:" for="codigoOpcion"/>
-                        <p:inputText type="text" id="codigoOpcion" value="#{crudViewBean.opcion.cod}"
-                                     required="true"/>
-                        <p:message for="codigoOpcion"/>
 
 
                         <p:outputLabel value="Descripcion:" for="descripcionOpcion"/>
@@ -176,9 +168,9 @@
                         <div align="center">
                             <p:commandButton action="#{crudViewBean.crearOpcion}" id="selectedItemText"
                                              value="Guardar opcion de respuesta"
-                                             update="dialogs" icon="pi pi-check"/>
+                                             update=":dialogs:opcionesList,@form" icon="pi pi-check"/>
                         </div>
-                        <p:growl for="msjBean" showDetail="true"/>
+                        <p:growl for="msjBeanOpcion" showDetail="true"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
