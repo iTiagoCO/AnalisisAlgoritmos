@@ -27,6 +27,7 @@ public class Persona implements Serializable{
 
     @Id
     @PositiveOrZero
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer cod;
 

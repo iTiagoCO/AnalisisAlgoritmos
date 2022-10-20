@@ -41,10 +41,7 @@ public class Estudiante extends Persona implements Serializable {
     @ToString.Exclude
     private Status status;
 
-    @Builder
-    public Estudiante(int cod, String nombre, String email,String password) {
-        super(cod,nombre,email,password);
-    }
+
 
     public Estudiante() {
     }

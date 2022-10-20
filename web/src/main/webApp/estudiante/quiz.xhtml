@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -14,51 +15,21 @@
     <ui:define name="title">Quiz</ui:define>
     <ui:define name="content">
 
+
         <div class="card">
-            <h:form>
-                <h1 class="text-center">
-                    <h:outputText id="txt_count" value="#{pruebaBean.number}"/>
-                </h1>
+            <p:carousel value="#{quizBean.preguntaList}" var="pregunta" numVisible="3"
+                        circular="true" numScroll="1">
+                <div class="card m-2 ">
 
-                <p:poll interval="2" listener="#{pruebaBean.increment}" update="txt_count"/>
-
-
-                <div>
-                    <h5></h5>
-                    <p:selectOneRadio id="opcionesList" value="#{pruebaBean.preguntaList}" layout="responsive"
-                                      columns="3"
-                                      unselectable="true" converter="#{preguntaConverter}">
-
-                        <f:selectItems var="city" itemLabel="#{city.titulo}"
-                                       value="#{pruebaBean.preguntaList}"/>
-                    </p:selectOneRadio>
-
+                    <h:outputText value="#{pregunta.titulo}"/>
 
                 </div>
+            </p:carousel>
 
-                <div>
-                    <p:dataTable
-                            value="#{pruebaBean.preguntaList}"
-                            var="u">
-                        <p:columnGroup type="header">
-                            <p:row>
-                                <p:column headerText="PREGUNTA"/>
-                                <p:column headerText="OPCIONES"/>
-                            </p:row>
-                        </p:columnGroup>
 
-                        <p:column>#{u.titulo}</p:column>
-                        <p:column>
-                            value="#{u.opcionList}"
-                            var="f">
-                            <p:selectOneRadio>
 
-                                <p:column>#{f.descripcion}</p:column>
-                            </p:selectOneRadio>
-                        </p:column>
-                    </p:dataTable>
-                </div>
-            </h:form>
+
+
         </div>
 
 
