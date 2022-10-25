@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="css_others">
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css" />
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/themes/saga-blue.css" />
+        <style>
+            .knob{
+                font-size: 1.25rem !important;
+                font-weight: 700 !important;
+                color: #000 !important;
+            }
+        </style>
+
+    </ui:define>
+    <ui:define name="content">
+
+        <h:form>
+
+
+            <h:panelGroup id="idContenedor">
+                <p:panel id="pnl" rendered="#{!encuestasViewBean.mostrarRespuestas}">
+                    <div class="grid">
+                        <div class="col-8  sm bg-green-400 flex flex-wrap align-items-center justify-content-center card-container">
+
+
+
+                            <div class=" sm text-center p-1 border-round-sm bg-green-400 font-bold text-white">
+
+                                <span class="vertical-align-middle">Encuesta</span>
+
+                            </div>
+
+                        </div>
+                        <div class="col-4">
+                            <div class="col-12">
+                                <div class="text-center p-1 border-round-sm bg-green-400 font-bold text-white">
+                                    Tiempo 
+                                    <h:outputText  id="txt_count" value="#{encuestasViewBean.tiempoString}"/>
+
+
+
+
+                                    <p:poll interval="1" listener="#{encuestasViewBean.increment}" 
+                                            update="idContenedor"
+                                            process="@this"
+                                            />
+                                </div>
+                                <div class="col-12">
+
+
+                                    <p:commandButton id="saveBtn" value="Anterior" styleClass="ui-button-secondary m-2"
+                                                     actionListener="#{encuestasViewBean.preguntaAnterior()}"
+                                                     icon="pi pi-arrow-left"
+                                                     update="idContenedor"
+                                                     process="city2"/>
+                                    <p:commandButton id="saveBtn2" value="Siguiente" styleClass="ui-button-success m-2" 
+                                                     actionListener="#{encuestasViewBean.preguntaSiguiente()}"
+                                                     icon="pi pi-arrow-right"
+                                                     update="idContenedor"/>
+
+                                    <p:commandButton id="saveBtn3" value="Finalizar" styleClass="ui-button-danger ui-button-flats m-2" 
+                                                     actionListener="#{encuestasViewBean.finalizo()}"
+                                                     icon="pi pi-stopwatch"
+                                                     update="res"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="text-center p-1 border-round-sm bg-blue-300 font-bold text-black">
+                                Pregunta
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="text-center p-1 border-round-sm bg-blue-300 font-bold text-black">
+
+                                <h:outputText  id="txt_pregunta" value="#{encuestasViewBean.preguntaSeleccionada.descripcion}"/>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center p-1 border-round-sm bg-blue-200 font-bold text-black">
+                                Respuestas
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+
+                            <p:selectOneRadio id="city2" value="#{encuestasViewBean.opcioneSelecionada}" 
+                                              layout="responsive" columns="3" unselectable="true"
+                                              converter="#{opcionConverter}"
+                                              >
+                                <f:selectItems value="#{encuestasViewBean.opciones}" var="opcion" 
+                                               itemLabel="#{opcion.descripcion}" itemValue="#{opcion}"/>
+
+                                <p:ajax listener="#{encuestasViewBean.guardarRespuesta}" 
+                                        process="@this"/>
+                            </p:selectOneRadio>
+
+
+                        </div>
+
+
+                        <div class="card w-100">
+
+
+                            <div class="flex flex-wrap align-items-center justify-content-center card-container">
+
+
+                                <div class="surface-overlay border-round border-1 shadow-1 p-5 py-0 m-3">
+
+                                    <span class="vertical-align-middle">Segundos Restantes</span>
+
+                                </div>
+                                <div class="knob-container  ui-corner-all  m-1 ">
+                                    <p:knob id="knob_count" foregroundColor="#fdd87d" backgroundColor="#fbc02d"
+                                            value="#{encuestasViewBean.timeRestante}"
+                                            min="0"
+                                            max="#{encuestasViewBean.tiempoLimite}"
+                                            height="70" width="70" 
+
+                                            />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <p:blockUI block="pnl" trigger="saveBtn,saveBtn2, saveBtn3, saveBtn4" widgetVar="buiBasic"/>
+                </p:panel>
+
+
+                <p:card id="res" style="margin-bottom: 2em" rendered="#{encuestasViewBean.mostrarRespuestas}">
+                    <f:facet name="title"> 
+                        Calificacion           #{encuestasViewBean.califiacion}
+                    </f:facet>
+
+
+                    <p:dataTable  var="preguntaRespuestas" value="#{encuestasViewBean.opcionesRespondidas}"
+                                  emptyMessage="No respondiste a ninguna pregunta">
+                        <p:column headerText="Pregunta">
+                            <h:outputText value="#{preguntaRespuestas.pregunta}" />
+                        </p:column>
+
+                        <p:column headerText="Respuesta">
+                            <h:outputText value="#{preguntaRespuestas.respuesta}" />
+                        </p:column>
+
+                        <p:column headerText="Correcta">
+                            <i class="pi #{preguntaRespuestas.correcta ? 'pi-check' : 'pi-times'} "></i>
+                        </p:column>
+
+                        <p:column headerText="Valor">
+                            <h:outputText value="#{preguntaRespuestas.valor}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton id="saveBtn4" value="Iniciar" styleClass="ui-button-danger ui-button-flats m-2" 
+                                     actionListener="#{encuestasViewBean.init()}"
+                                     icon="pi pi-clock"
+                                     update="idContenedor"/>
+
+                </p:card>
+
+            </h:panelGroup>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

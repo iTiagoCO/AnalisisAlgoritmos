@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h1="http://java.sun.com/jsf/html">
+    <head>
+        <link rel="stylesheet" href="../resources/css/styles.css"></link>
+    </head>
+    <ui:composition template="../WEB-INF/template.xhtml">
+        <ui:define name="title">Gestionar estudiantes</ui:define>
+        <ui:define name="content">
+
+            <div class="card crud-demo">
+                <h:form id="form">
+
+                    <p:toolbar>
+                        <p:toolbarGroup>
+
+
+                            <p:commandButton value="Nueva" onclick="PF('manageProductDialog').show()" update="@form"
+                                             icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem"/>
+                            <p:growl for="msjBean" showDetail="true"/>
+                            <p:commandButton id="delete-products-button" value="#{crudViewBean.deleteButtonMessage}"
+                                             icon="pi pi-trash" actionListener="#{crudViewBean.deleteSelectedProducts}"
+                                             styleClass="ui-button-danger" disabled="#{!crudViewBean.hasSelectedProducts()}"
+                                             update="@this">
+                                <p:confirm header="Confirmation" message="Delete the selected products?"
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
+                    <p:dataTable var="customer" value="#{profesorBean.estudianteList}" widgetVar="dtProducts"
+                                 emptyMessage="Sin estudiantes aun :("
+                                 filteredValue="#{profesorBean.estudianteFilterList}" filterBy="#{profesorBean.filterBy}"
+                                 id="dt-products">
+
+                        <f:facet name="header">
+                            <span>Lista</span>
+                        </f:facet>
+
+                        <p:column headerText="Name" sortBy="#{customer.nombre}">
+                            <h:outputText value="#{customer.nombre}"/>
+                        </p:column>
+
+                        <p:column headerText="Localidad">
+                            <span class="flag flag-co" style="width: 30px; height: 20px"/>
+                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="Colombia"/>
+                        </p:column>
+
+                        <p:column headerText="Status">
+                            <div class="customer-badge ">#{customer.status.titulo}</div>
+                            <span class="customer-badge status-regular">#{customer.status.titulo}</span>
+                        </p:column>
+
+                        <p:column headerText="Promedio" sortBy="#{customer.promedio}"
+                                  converter="javax.faces.Integer">
+
+
+                             <span class="customer-badge status-regular">#{customer.promedio}</span>
+                            <p:progressBar value="#{customer.promedio}" displayOnly="true" style="height: .5rem"/>
+                        </p:column>
+
+                        <p:column headerText="Promedio" sortBy="#{customer.promedio}"
+                                  converter="javax.faces.Integer">
+
+                            <div class="status-bueno"/>
+                            <div class="status-malo"/>
+                            <div class="status-promedio"/>
+                            <div class="status-regular"/>
+                            
+                            
+                            <h:outputText styleClass="product-badge status-#{customer.status.css}"
+                                          value="#{customer.status.descripcion}" />
+                            
+         
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+
+                <p:dialog header="Pregunta" showEffect="fade" modal="true" id="dialogPregunta"
+                          widgetVar="manageProductDialog">
+
+                    <h:form id="dialogs">
+
+                        <h:panelGrid columns="1" cellpadding="2">
+
+                            <p:outputLabel value="Nombre:" for="nameEstudiante"/>
+                            <p:inputText id="nameEstudiante" value="#{profesorBean.estudiante.nombre}"
+                                         required="true"/>
+                            <p:message for="nameEstudiante"/>
+
+                            <p:outputLabel value="Edad:" for="edadEstudiante"/>
+                            <p:inputText type="text" id="edadEstudiante" value="#{profesorBean.estudiante.edad}"
+                                         required="true"/>
+                            <p:message for="edadEstudiante"/>
+
+                            <p:outputLabel value="Email:" for="emailEstudiante"/>
+                            <p:inputText type="text" id="emailEstudiante" value="#{profesorBean.estudiante.email}"
+                                         required="true"/>
+                            <p:message for="emailEstudiante"/>
+
+                            <p:outputLabel value="Contraseña:" for="passEstudiante"/>
+                            <p:password type="password" id="passEstudiante" value="#{profesorBean.estudiante.password}"
+                                        required="true"/>
+                            <p:message for="passEstudiante"/>
+
+
+                            <div align="center">
+
+                                <p:commandButton action="#{profesorBean.saveEstudiante}" value="Registrar"
+                                                 update="@form,:form:dt-products"
+                                                 icon="pi pi-plus" id="submitButton" onclick="PF('manageProductDialog').hide()"/>
+                                <p:growl for="msjBeanEst" showDetail="true"/>
+                            </div>
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

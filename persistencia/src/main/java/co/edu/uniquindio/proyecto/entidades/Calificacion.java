@@ -32,4 +32,12 @@ public class Calificacion {
     @OneToMany(mappedBy = "calificacion")
     @ToString.Exclude
     private List<Prueba> pruebaList;
+
+    public Calificacion(int i) {
+        this.cod=i;
+       
+    }
+    public Calificacion() {
+       
+    }
 }

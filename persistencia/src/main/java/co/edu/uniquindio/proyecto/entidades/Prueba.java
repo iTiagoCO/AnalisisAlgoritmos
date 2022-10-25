@@ -1,6 +1,5 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
@@ -8,20 +7,22 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 /**
- * Declaracion entidad Usuario con extends de persona y el constructor de la superclase.
+ * Declaracion entidad Usuario con extends de persona y el constructor de la
+ * superclase.
  */
 public class Prueba implements Serializable {
 
     @Id
     @PositiveOrZero
     @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cod;
 
     @Column(nullable = false)
@@ -30,13 +31,19 @@ public class Prueba implements Serializable {
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(nullable = false)
-    private Profesor profesor;
+    private Estudiante estudiante;
 
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(nullable = false)
+    private Profesor profesor;
+    
+    @Column(nullable = true)
+    private int estatus;
 
     @ManyToMany(mappedBy = "pruebas")
     @ToString.Exclude
-    private List <Pregunta> preguntaList;
-
+    private List<Pregunta> preguntaList;
 
     @OneToMany(mappedBy = "prueba")
     @ToString.Exclude
@@ -46,12 +53,7 @@ public class Prueba implements Serializable {
     @ToString.Exclude
     private Calificacion calificacion;
 
-    public Prueba() {
-        super();
-    }
+   
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
+ 
 }

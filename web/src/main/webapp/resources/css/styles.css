@@ -6,39 +6,20 @@
     font-weight: bold
 }
 
-.product-item .product-item-content {
-    border: 1px solid var(--surface-d);
-    border-radius: 3px;
-    margin: .3rem;
-    text-align: center;
-    padding: 2rem 0;
-}
 
-.product-item .product-image {
-    width: 50%;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+.customer-badge {
+    
+    border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
 }
 
 .customer-badge.status-malo {
     background-color: #ffcdd2;
     color: #c63737;
-}
-
-body .ui-datatable .ui-datatable-data>tr .ui-row-editor>a {
-    width: 2rem;
-    height: 2rem;
-    background: transparent;
-    color: #6c757d;
-    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s,opacity .2s;
-    border-radius: 50%;
-    border: 0 none;
-    text-align: center;
-    line-height: 2rem;
-    padding: 0;
-    user-select: none;
-}
-.ui-datatable .ui-row-editor .ui-row-editor-pencil {
-    display: inline-block;
 }
 
 .customer-badge.status-regular {

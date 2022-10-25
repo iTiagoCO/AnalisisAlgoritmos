@@ -12,4 +12,5 @@ public interface PreguntaServicio {
     Pregunta obtenerPregunta (Integer codigo);
     void eliminarPregunta(Integer codigo) throws Exception;
     List<Pregunta> preguntasList();
+       
 }

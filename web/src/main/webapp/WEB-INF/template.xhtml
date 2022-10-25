@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=0.5"/>
+        <title>UniShop |
+            <ui:insert name="title"> Plantilla</ui:insert>
+        </title>
+
+          <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css" />
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+        <ui:insert name="css_others">
+          
+        </ui:insert>
+
+
+    </h:head>
+    <h:body>
+        <div id="header">
+            <div class="px-6 py-2 bg-dark text-white">
+                <div class="container">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                        <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                            <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"></i>
+                            <br></br>
+                            <span class="fs-3">  Test Poveda Toro</span>
+                        </a>
+
+                        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small" style="text-align: center">
+                            <li>
+                                <a href="../index.xhtml" class="nav-link text-white">
+                                    <i class="pi pi-home bi d-block mx-auto mb-1 icon-menu"  ></i>
+                                    Home
+                                </a>
+                            </li>
+                            <li jsf:rendered="#{seguridadBean.autenticado}">
+                                <a href="../estudiante/quiz.xhtml" class="nav-link text-white">
+                                    <i class="pi pi-user bi d-block mx-auto mb-1 icon-menu"  ></i>
+                                    Quiz
+                                </a>
+                            </li>
+                            <li jsf:rendered="#{seguridadBean.admin}">
+                                <a href="../profesor/gestionarEstudiantes.xhtml" class="nav-link text-white">
+                                    <i class="pi pi-user-plus bi d-block mx-auto mb-1 icon-menu"  ></i>
+                                    Gestionar Estudiantes
+                                </a>
+                            </li>
+                            <li jsf:rendered="#{seguridadBean.admin}">
+                                <a href="../profesor/bancoPrueba.xhtml" class="nav-link text-white">
+                                    <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"  ></i>
+                                    Gestionar preguntas
+                                </a>
+                            </li>
+                            <li jsf:rendered="#{seguridadBean.admin}">
+                                <a href="../pruebas.xhtml" class="nav-link text-white">
+                                    <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"  ></i>
+                                    Pruebas
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="px-3 py-2 border-bottom mb-3">
+                <div class="container d-flex flex-wrap justify-content-center">
+
+                    <div class=" col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto input-search ui-inputgroup">
+                    </div>
+
+
+                    <div class="text-end">
+                        <h:form rendered="#{!seguridadBean.estaLogueado()}">
+                            <p:commandButton styleClass="ui-button-raised ui-button-success" icon="pi pi-user"
+                                             iconPos="left" value="Login" onclick="PF('login').show()"
+                                             rendered="#{!seguridadBean.autenticado}" />
+                            <span>   </span>
+
+                        </h:form>
+                        <div jsf:rendered="#{seguridadBean.autenticado}">
+                            <span> Hola! #{seguridadBean.estudiante.nombre}</span>
+                            <h:form>
+                                <p:commandButton value="Cerrar Sesion" styleClass="ui-button-raised ui-button-warning" icon="pi pi-user" action="#{seguridadBean.cerrarSesion}"/>
+                            </h:form>
+
+                        </div>
+                        <div jsf:rendered="#{seguridadBean.admin}">
+                            <span> Hola! Profe #{seguridadBean.profesorSesion.nombre}</span>
+                            <h:form>
+                                <p:commandButton value="Cerrar Sesion" styleClass="ui-button-raised ui-button-warning" icon="pi pi-user" action="#{seguridadBean.cerrarSesion}"/>
+                            </h:form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <p:dialog header="Iniciar sesión" showEffect="fade" widgetVar="login" modal="true" rendered="#{!seguridadBean.autenticado}" >
+                <h:form >
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:outputLabel for="email_login" value="Email:" />
+                        <p:inputText id="email_login" value="#{seguridadBean.email}" required="true" />
+                        <p:message for="email_login" />
+                        <p:outputLabel for="password_login" value="Password:" />
+                        <p:password id="password_login" value="#{seguridadBean.password}" required="true"
+                                    />
+                        <p:message for="password_login" />
+                    </h:panelGrid>
+                    <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                                     styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left" />
+                    <p:growl for="login-bean" showDetail="true" />
+                </h:form>
+            </p:dialog>
+
+        </div>
+        <div id="content">
+            <div class="container"   >
+                <ui:insert name="content">Contenido</ui:insert>
+            </div>
+        </div>
+        <div id="footer" class="footer mt-5">
+            <ui:insert name="footer">
+                <div class="py-4 bg-light" align="center">
+                    <div class="justify-content-center" >
+                        <div class="col-10" >
+                            <span>Universidad del Quindío - Analisis de Algoritmos</span>
+                        </div>
+                    </div>
+                </div>
+            </ui:insert>
+        </div>
+    </h:body>
+</html>

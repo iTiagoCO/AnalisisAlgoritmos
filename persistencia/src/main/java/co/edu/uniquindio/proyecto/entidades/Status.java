@@ -22,15 +22,15 @@ public class Status implements Serializable {
     @EqualsAndHashCode.Include
     private Integer cod;
 
-
     @NotBlank
-    @Column(length = 50,nullable = false)
+    @Column(length = 50, nullable = false)
     private String titulo;
 
-
-    @Column(length = 100,nullable = false)
+    @Column(length = 100, nullable = false)
     private String descripcion;
 
+    @Column(length = 100, nullable = false)
+    private String css;
 
     @OneToMany(mappedBy = "status")
     @ToString.Exclude

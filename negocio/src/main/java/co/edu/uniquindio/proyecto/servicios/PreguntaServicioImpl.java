@@ -2,22 +2,24 @@ package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.Pregunta;
 import co.edu.uniquindio.proyecto.repositorios.PreguntaRepo;
+import co.edu.uniquindio.proyecto.repositorios.PruebaRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PreguntaServicioImpl implements PreguntaServicio{
+public class PreguntaServicioImpl implements PreguntaServicio {
 
     private final PreguntaRepo preguntaRepo;
+
 
     public PreguntaServicioImpl(PreguntaRepo preguntaRepo) {
         this.preguntaRepo = preguntaRepo;
     }
 
-
     @Override
     public List<Pregunta> preguntasList() {
+
         return preguntaRepo.findAll();
 
     }
@@ -27,15 +29,11 @@ public class PreguntaServicioImpl implements PreguntaServicio{
         return preguntaRepo.save(u);
     }
 
-
-
-
-
     @Override
     public Pregunta actualizarPregunta(Pregunta u) throws Exception {
         Pregunta usuario = obtenerPregunta(u.getCod());
 
-        if(usuario == null){
+        if (usuario == null) {
             throw new Exception("El usuario no existe");
         }
         return preguntaRepo.save(u);
@@ -46,13 +44,11 @@ public class PreguntaServicioImpl implements PreguntaServicio{
         return preguntaRepo.findById(codigo).orElse(null);
     }
 
-
-
     @Override
     public void eliminarPregunta(Integer codigo) throws Exception {
         Pregunta u = obtenerPregunta(codigo);
 
-        if(u == null){
+        if (u == null) {
             throw new Exception("La pregunta no existe");
         }
 

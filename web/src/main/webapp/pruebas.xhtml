@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h1="http://java.sun.com/jsf/html">
+    <ui:composition template="WEB-INF/template.xhtml">
+        <ui:define name="title">Pruebas</ui:define>
+        <ui:define name="content">
+
+
+
+            <p:dataTable  var="fila" value="#{pruebaBean.pruebasByProfesor}"
+                          emptyMessage="No hay ninguna prueba">
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{fila.fecha}" />
+                </p:column>
+
+                <p:column headerText="Estudiante">
+                    <h:outputText value="#{fila.estudiante.nombre}" />
+                </p:column>
+
+                <p:column headerText="Profesor">
+                    <h:outputText value="#{fila.profesor.nombre}" />
+                </p:column>
+
+                <p:column headerText="Profesor">
+                    <h:outputText value="#{fila.profesor.nombre}" />
+                </p:column>
+
+                <p:column headerText="Valor">
+                    <h:outputText value="#{fila.calificacion.descripcion}" />
+                </p:column>
+
+                <p:column headerText="Status">
+                  
+
+                    <span class="customer-badge status-#{fila.estatus !=0 ? 'regular' : 'malo'}">
+                        #{fila.estatus !=0 ? 'TERMINO' : 'EXPIRO'}
+
+                    </span>
+                </p:column>
+            </p:dataTable>
+
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>

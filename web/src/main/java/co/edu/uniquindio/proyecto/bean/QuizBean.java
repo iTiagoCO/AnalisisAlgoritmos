@@ -25,6 +25,7 @@ import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpServletRequest;
 
 import co.edu.uniquindio.proyecto.servicios.PruebaServicio;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ViewScoped
-public class QuizBean {
+public class QuizBean implements Serializable{
 
     @Autowired
     PreguntaServicio preguntaServicio;
