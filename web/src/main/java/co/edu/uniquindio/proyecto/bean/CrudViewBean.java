@@ -78,6 +78,7 @@ public class CrudViewBean implements Serializable {
     private List<Pregunta> selectedPreguntas;
 
 
+
     @PostConstruct
     public void init() {
         opcion = new Opcion();
@@ -103,7 +104,6 @@ public class CrudViewBean implements Serializable {
         try {
             System.out.println(pregunta);
             pregunta.setEsVisible(value);
-            categoria = profesorServicio.obtenerCategoria(1);
             pregunta.setCategoria(categoria);
             preguntasList.add(pregunta);
             //pregunta.setOpcionList(opcionList);
@@ -130,28 +130,6 @@ public class CrudViewBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage("msjBeanPregunta", mensaje);
 
         return null;
-    }
-
-
-    public String getDeleteButtonMessage() {
-        if (hasSelectedProducts()) {
-            int size = this.selectedPreguntas.size();
-            return size > 1 ? size + " Pregunta eliminada" : "1 pregunta seleccionada";
-        }
-
-        return "Delete";
-    }
-
-    public boolean hasSelectedProducts() {
-        return this.selectedPreguntas != null && !this.selectedPreguntas.isEmpty();
-    }
-
-    public void deleteSelectedProducts() {
-        this.preguntasList.removeAll(this.selectedPreguntas);
-        this.selectedPreguntas = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Preguntas Removidas"));
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
-        PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
     }
 
 

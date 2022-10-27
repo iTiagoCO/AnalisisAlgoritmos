@@ -1,0 +1,254 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+$brain-stem-bg-color: #b81434;
+$cerebellum-bg-color: #00aa7f;
+$frontal-lobe-bg-color: #00bcd4;
+$occipital-lobe-bg-color: #ffc446;
+$parietal-lobe-bg-color: #e497a4;
+$temporal-lobe-bg-color: #7e7acf;
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tdc-main {
+  height: 100vh;
+  width: 100%;
+
+  &-left {
+    width: 20%;
+    float: left;
+    height: 100%;
+    color: white;
+    background: rgba(0, 0, 0, .9);
+    box-shadow: 0 0 11px 1px rgba(0, 0, 0, .4);
+
+    &-wrapper {
+      height: 100%;
+
+      &-info {
+        display: block;
+        padding: 10px;
+
+        .tdc-info-title {
+          font-size: 25px;
+          font-weight: bold;
+        }
+
+        .tdc-info-description {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  &-right {
+    position: relative;
+    width: 80%;
+    float: left;
+    height: 100%;
+
+    &-filter {
+      position: absolute;
+      left: 0;
+      width: 50%;
+      height: 100%;
+
+      &-item {
+        width: 50%;
+        display: inline-block;
+        padding: 2px;
+        height: calc(100vh / 18.5);
+        border: 1px solid grey;
+        border-radius: 0 2px 2px 0;
+        opacity: .3;
+        transition: all .2s;
+        box-sizing: border-box;
+        text-align: center;
+        transform: scale(1);
+        transform-origin: left;
+        line-height: calc(100vh / 21);
+
+        &.active {
+          opacity: 1;
+          color: white;
+          border-color: transparent;
+          transform: scale(1.1);
+
+          &.frontal_lobe {
+            background: $frontal-lobe-bg-color;
+          }
+
+          &.temporal_lobe {
+            background: $temporal-lobe-bg-color;
+          }
+
+          &.occipital_lobe {
+            background: $occipital-lobe-bg-color;
+          }
+
+          &.cerebellum {
+            background: $cerebellum-bg-color;
+          }
+
+          &.parietal_lobe {
+            background: $parietal-lobe-bg-color;
+          }
+
+          &.brain_stem {
+            background: $brain-stem-bg-color;
+          }
+
+        }
+      }
+    }
+
+    &-demo {
+      width: 100%;
+      height: 100%;
+
+      &-brain {
+        position: relative;
+        float: right;
+        right: 100px;
+        width: 420px;
+        height: 450px;
+        top: calc(50% - 450px / 2);
+        display: block;
+
+        &:hover {
+          svg {
+            opacity: .5;
+          }
+        }
+
+        .tdc-brain-part {
+          position: absolute;
+          cursor: pointer;
+
+          svg {
+            width: 200px;
+            fill: white;
+            stroke: black;
+            transform: scale(1);
+            transition: all .5s;
+
+            path {
+              pointer-events: all;
+              stroke-dasharray: 1000;
+              stroke-dashoffset: 1000;
+              animation: dash 2s linear forwards;
+            }
+          }
+
+          &:hover,
+          &.active {
+            svg {
+              transform: scale(1.5);
+              opacity: 1;
+              stroke: #fff;
+            }
+          }
+        }
+
+        .tdc-frontal-lobe {
+          top: 0;
+          left: 0;
+
+          &:hover,
+          &.active {
+            svg {
+              fill: $frontal-lobe-bg-color;
+            }
+          }
+        }
+
+        .tdc-cerebellum {
+          top: 235px;
+          left: 215px;
+
+          svg {
+            width: 160px;
+          }
+
+          &:hover,
+          &.active {
+            svg {
+              fill: $cerebellum-bg-color;
+            }
+          }
+        }
+
+        .tdc-occipital-lobe {
+          top: 100px;
+          left: 280px;
+
+          svg {
+            width: 140px;
+          }
+
+          &:hover,
+          &.active {
+            svg {
+              fill: $occipital-lobe-bg-color;
+            }
+          }
+        }
+
+        .tdc-parietal-lobe {
+          top: 0;
+          left: 180px;
+
+          &:hover,
+          &.active {
+            svg {
+              fill: $parietal-lobe-bg-color;
+            }
+          }
+        }
+
+        .tdc-temporal-lobe {
+          top: 140px;
+          left: 95px;
+
+          svg {
+            width: 220px;
+          }
+
+          &:hover,
+          &.active {
+            svg {
+              fill: $temporal-lobe-bg-color;
+            }
+          }
+        }
+
+        .tdc-brain-stem {
+          top: 280px;
+          left: 180px;
+
+          svg {
+            width: 140px;
+          }
+
+          &:hover,
+          &.active {
+            svg {
+              fill: $brain-stem-bg-color;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
+
+

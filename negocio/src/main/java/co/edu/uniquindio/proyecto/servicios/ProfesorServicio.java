@@ -7,6 +7,7 @@ import co.edu.uniquindio.proyecto.entidades.Profesor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProfesorServicio {
 
@@ -21,4 +22,6 @@ public interface ProfesorServicio {
 
     Categorias obtenerCategoria (Integer codigo) throws Exception;
     public List<Categorias> obtenerCategorias();
-}
+    Optional<Profesor> obtenerProfesor(String email);
+    List<Profesor> finAll();
+ }

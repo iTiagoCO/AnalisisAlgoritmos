@@ -13,5 +13,5 @@ public interface PruebaServicio {
     public Prueba registrarPrueba(Prueba u) throws Exception;
     List<Prueba> pruebaList();
     public List<Prueba> buscarPruebasByProfesor(Profesor profesor) throws Exception;
-
+    public List<Prueba> buscarPruebasByEstudiante (String email) throws Exception;
 }

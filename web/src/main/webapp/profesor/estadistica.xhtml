@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h1="http://java.sun.com/jsf/html">
+<ui:composition template="../WEB-INF/template.xhtml">
+    <ui:define name="title">Inicio docente</ui:define>
+    <ui:define name="content">
+
+        <script type="text/javascript">
+
+            function skinRadarChart() {
+                Chart.defaults.startAngle = 36;
+                Chart.defaults.plugins.tooltip.cornerRadius = 3;
+                Chart.defaults.plugins.tooltip.enabled = true;
+                Chart.defaults.plugins.tooltip.mode = 'point';
+                Chart.defaults.plugins.tooltip.position = 'nearest';
+            }
+        </script>
+
+
+
+
+        <div class="card">
+            <p:splitter rendered="#{seguridadBean.admin}">
+                <p:splitterPanel>
+
+                    <div style="width: 480px">
+
+                        <div>
+                            <p:radarChart style="width: 10%; height: 10px;"
+                                          rendered="#{seguridadBean.admin}" model="#{inicioBean.radarModel}"/>
+                        </div>
+                    </div>
+
+                </p:splitterPanel>
+                <p:splitterPanel styleClass="center">
+                    <div style="width: 450px">
+                        <div>
+                            <p:polarAreaChart rendered="#{seguridadBean.admin}" model="#{inicioBean.polarAreaModel}"
+                                              style="width: 5%; height: 5px;"/>
+
+                        </div>
+
+                    </div>
+
+
+                </p:splitterPanel>
+
+            </p:splitter>
+
+
+            <p:splitter rendered="#{seguridadBean.admin}" style="height: 300px" styleClass="mb-5">
+                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
+                    <p:lineChart rendered="#{seguridadBean.admin}" model="#{inicioBean.lineModel}"
+                                 style="width: 20%; height: 40px;"/>
+                </p:splitterPanel>
+                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
+                    <p:barChart rendered="#{seguridadBean.admin}" model="#{inicioBean.hbarModel}"
+                                style="width: 30%; height: 60px;"/>
+
+                </p:splitterPanel>
+
+            </p:splitter>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -16,4 +16,7 @@ public interface PruebaRepo extends JpaRepository<Prueba,Integer> {
     @Query("select prueba from Prueba prueba where prueba.profesor = :profesor")
     public List<Prueba> buscarPruebasByProfesor(Profesor profesor) throws Exception;
 
+    @Query("select prueba from Prueba prueba where prueba.estudiante.email = :email")
+    public List<Prueba> buscarPruebasByEstudiante(String email) throws Exception;
+
 }

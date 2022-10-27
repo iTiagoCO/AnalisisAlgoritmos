@@ -26,7 +26,7 @@
 
 
             <h:panelGroup id="idContenedor">
-                <p:panel id="pnl" rendered="#{!encuestasViewBean.mostrarRespuestas}">
+                <p:panel id="pnl" rendered="#{!quizBean.mostrarRespuestas}">
                     <div class="grid">
                         <div class="col-8  sm bg-green-400 flex flex-wrap align-items-center justify-content-center card-container">
 
@@ -43,12 +43,12 @@
                             <div class="col-12">
                                 <div class="text-center p-1 border-round-sm bg-green-400 font-bold text-white">
                                     Tiempo 
-                                    <h:outputText  id="txt_count" value="#{encuestasViewBean.tiempoString}"/>
+                                    <h:outputText  id="txt_count" value="#{quizBean.tiempoString}"/>
 
 
 
 
-                                    <p:poll interval="1" listener="#{encuestasViewBean.increment}" 
+                                    <p:poll interval="1" listener="#{quizBean.increment}"
                                             update="idContenedor"
                                             process="@this"
                                             />
@@ -57,17 +57,17 @@
 
 
                                     <p:commandButton id="saveBtn" value="Anterior" styleClass="ui-button-secondary m-2"
-                                                     actionListener="#{encuestasViewBean.preguntaAnterior()}"
+                                                     actionListener="#{quizBean.preguntaAnterior()}"
                                                      icon="pi pi-arrow-left"
                                                      update="idContenedor"
-                                                     process="city2"/>
+                                    />
                                     <p:commandButton id="saveBtn2" value="Siguiente" styleClass="ui-button-success m-2" 
-                                                     actionListener="#{encuestasViewBean.preguntaSiguiente()}"
+                                                     actionListener="#{quizBean.preguntaSiguiente()}"
                                                      icon="pi pi-arrow-right"
                                                      update="idContenedor"/>
 
                                     <p:commandButton id="saveBtn3" value="Finalizar" styleClass="ui-button-danger ui-button-flats m-2" 
-                                                     actionListener="#{encuestasViewBean.finalizo()}"
+                                                     actionListener="#{quizBean.finalizo()}"
                                                      icon="pi pi-stopwatch"
                                                      update="res"/>
                                 </div>
@@ -75,13 +75,13 @@
                         </div>
                         <div class="col-2">
                             <div class="text-center p-1 border-round-sm bg-blue-300 font-bold text-black">
-                                Pregunta
+                                <h:outputText  id="txt_pregunta_titulo" value="#{quizBean.preguntaSeleccionada.titulo}"/>
                             </div>
                         </div>
                         <div class="col-10">
                             <div class="text-center p-1 border-round-sm bg-blue-300 font-bold text-black">
 
-                                <h:outputText  id="txt_pregunta" value="#{encuestasViewBean.preguntaSeleccionada.descripcion}"/>
+                                <h:outputText  id="txt_pregunta" value="#{quizBean.preguntaSeleccionada.descripcion}"/>
                             </div>
                         </div>
                         <div class="col-12">
@@ -92,14 +92,14 @@
 
                         <div class="col-12">
 
-                            <p:selectOneRadio id="city2" value="#{encuestasViewBean.opcioneSelecionada}" 
+                            <p:selectOneRadio id="city2" value="#{quizBean.opcioneSelecionada}"
                                               layout="responsive" columns="3" unselectable="true"
                                               converter="#{opcionConverter}"
                                               >
-                                <f:selectItems value="#{encuestasViewBean.opciones}" var="opcion" 
+                                <f:selectItems value="#{quizBean.opciones}" var="opcion"
                                                itemLabel="#{opcion.descripcion}" itemValue="#{opcion}"/>
 
-                                <p:ajax listener="#{encuestasViewBean.guardarRespuesta}" 
+                                <p:ajax listener="#{quizBean.guardarRespuesta}"
                                         process="@this"/>
                             </p:selectOneRadio>
 
@@ -120,9 +120,9 @@
                                 </div>
                                 <div class="knob-container  ui-corner-all  m-1 ">
                                     <p:knob id="knob_count" foregroundColor="#fdd87d" backgroundColor="#fbc02d"
-                                            value="#{encuestasViewBean.timeRestante}"
+                                            value="#{quizBean.timeRestante}"
                                             min="0"
-                                            max="#{encuestasViewBean.tiempoLimite}"
+                                            max="#{quizBean.tiempoLimite}"
                                             height="70" width="70" 
 
                                             />
@@ -138,13 +138,13 @@
                 </p:panel>
 
 
-                <p:card id="res" style="margin-bottom: 2em" rendered="#{encuestasViewBean.mostrarRespuestas}">
+                <p:card id="res" style="margin-bottom: 2em" rendered="#{quizBean.mostrarRespuestas}">
                     <f:facet name="title"> 
-                        Calificacion           #{encuestasViewBean.califiacion}
+                        Calificacion           #{quizBean.califiacion}
                     </f:facet>
 
 
-                    <p:dataTable  var="preguntaRespuestas" value="#{encuestasViewBean.opcionesRespondidas}"
+                    <p:dataTable  var="preguntaRespuestas" value="#{quizBean.opcionesRespondidas}"
                                   emptyMessage="No respondiste a ninguna pregunta">
                         <p:column headerText="Pregunta">
                             <h:outputText value="#{preguntaRespuestas.pregunta}" />
@@ -164,7 +164,7 @@
                     </p:dataTable>
 
                     <p:commandButton id="saveBtn4" value="Iniciar" styleClass="ui-button-danger ui-button-flats m-2" 
-                                     actionListener="#{encuestasViewBean.init()}"
+                                     actionListener="#{quizBean.init()}"
                                      icon="pi pi-clock"
                                      update="idContenedor"/>
 

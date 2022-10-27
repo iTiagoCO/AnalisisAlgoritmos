@@ -93,4 +93,13 @@ public class ProfesorServicioImpl implements ProfesorServicio {
     public List<Categorias> obtenerCategorias() {
         return categoriaRepo.findAll();
     }
+
+    @Override
+    public Optional<Profesor> obtenerProfesor(String email) {
+        return profeRepo.findByEmail(email);
+    }
+
+    public List<Profesor> finAll(){
+        return  profeRepo.findAll();
+    }
 }

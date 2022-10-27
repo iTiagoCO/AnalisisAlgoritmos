@@ -25,7 +25,7 @@ public class Pregunta implements Serializable {
     private String titulo;
 
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 300, nullable = false)
     private String descripcion;
 
 

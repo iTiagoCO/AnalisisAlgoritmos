@@ -13,4 +13,3 @@ public class PaginaPrincipalConfig implements WebMvcConfigurer {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }
-

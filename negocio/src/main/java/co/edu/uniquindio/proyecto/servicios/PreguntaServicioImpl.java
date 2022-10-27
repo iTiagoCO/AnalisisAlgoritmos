@@ -13,6 +13,7 @@ public class PreguntaServicioImpl implements PreguntaServicio {
     private final PreguntaRepo preguntaRepo;
 
 
+
     public PreguntaServicioImpl(PreguntaRepo preguntaRepo) {
         this.preguntaRepo = preguntaRepo;
     }

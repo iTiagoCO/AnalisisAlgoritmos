@@ -43,7 +43,7 @@ public class EstudianteServicioImpl implements EstudianteServicio{
         return estudianteRepo.save(u);
     }
 
-    private Optional<Estudiante> buscarPorEmail(String email){
+    public Optional<Estudiante> buscarPorEmail(String email){
         return estudianteRepo.findByEmail(email);
     }
 

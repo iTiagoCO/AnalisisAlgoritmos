@@ -25,13 +25,7 @@
                             <p:commandButton value="Nueva" onclick="PF('manageProductDialog').show()" update="@form"
                                              icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem"/>
                             <p:growl for="msjBean" showDetail="true"/>
-                            <p:commandButton id="delete-products-button" value="#{crudViewBean.deleteButtonMessage}"
-                                             icon="pi pi-trash" actionListener="#{crudViewBean.deleteSelectedProducts}"
-                                             styleClass="ui-button-danger" disabled="#{!crudViewBean.hasSelectedProducts()}"
-                                             update="@this">
-                                <p:confirm header="Confirmation" message="Delete the selected products?"
-                                           icon="pi pi-exclamation-triangle"/>
-                            </p:commandButton>
+
                         </p:toolbarGroup>
                     </p:toolbar>
 
@@ -48,38 +42,22 @@
                             <h:outputText value="#{customer.nombre}"/>
                         </p:column>
 
+                        <p:column headerText="Edad" sortBy="#{customer.edad}">
+                            <h:outputText value="#{customer.edad}"/>
+                        </p:column>
+
                         <p:column headerText="Localidad">
-                            <span class="flag flag-co" style="width: 30px; height: 20px"/>
-                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="Colombia"/>
+                            <span class="flag flag-co" style="width: 30px; height: 20px" ></span>
+                            <span style="vertical-align: middle; margin-left: .5rem">Colombia</span>
                         </p:column>
 
-                        <p:column headerText="Status">
-                            <div class="customer-badge ">#{customer.status.titulo}</div>
-                            <span class="customer-badge status-regular">#{customer.status.titulo}</span>
+
+
+                        <p:column headerText="Promedio">
+                            <p:progressBar  class="color-box" style="color:#cdc8c8" value="#{customer.promedio}" labelTemplate="{value} Puntos" displayOnly="true"/>
                         </p:column>
 
-                        <p:column headerText="Promedio" sortBy="#{customer.promedio}"
-                                  converter="javax.faces.Integer">
 
-
-                             <span class="customer-badge status-regular">#{customer.promedio}</span>
-                            <p:progressBar value="#{customer.promedio}" displayOnly="true" style="height: .5rem"/>
-                        </p:column>
-
-                        <p:column headerText="Promedio" sortBy="#{customer.promedio}"
-                                  converter="javax.faces.Integer">
-
-                            <div class="status-bueno"/>
-                            <div class="status-malo"/>
-                            <div class="status-promedio"/>
-                            <div class="status-regular"/>
-                            
-                            
-                            <h:outputText styleClass="product-badge status-#{customer.status.css}"
-                                          value="#{customer.status.descripcion}" />
-                            
-         
-                        </p:column>
 
                     </p:dataTable>
 

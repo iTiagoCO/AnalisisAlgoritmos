@@ -9,7 +9,7 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=0.5"/>
-        <title>UniShop |
+        <title>Test |
             <ui:insert name="title"> Plantilla</ui:insert>
         </title>
 
@@ -17,7 +17,7 @@
         <h:outputStylesheet library="css" name="styles.css" />
         <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
         <ui:insert name="css_others">
-          
+
         </ui:insert>
 
 
@@ -28,9 +28,9 @@
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                            <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"></i>
+
                             <br></br>
-                            <span class="fs-3">  Test Poveda Toro</span>
+                            <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"></i>
                         </a>
 
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small" style="text-align: center">
@@ -41,7 +41,7 @@
                                 </a>
                             </li>
                             <li jsf:rendered="#{seguridadBean.autenticado}">
-                                <a href="../estudiante/quiz.xhtml" class="nav-link text-white">
+                                <a href="../estudiante/encuesta.xhtml" class="nav-link text-white">
                                     <i class="pi pi-user bi d-block mx-auto mb-1 icon-menu"  ></i>
                                     Quiz
                                 </a>
@@ -62,6 +62,12 @@
                                 <a href="../pruebas.xhtml" class="nav-link text-white">
                                     <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"  ></i>
                                     Pruebas
+                                </a>
+                            </li>
+                            <li jsf:rendered="#{seguridadBean.admin}">
+                                <a href="../profesor/estadistica.xhtml" class="nav-link text-white">
+                                    <i class="pi pi-file-o bi d-block mx-auto mb-1 icon-menu"  ></i>
+                                    Estadisticas
                                 </a>
                             </li>
                         </ul>
@@ -135,6 +141,8 @@
                 <div class="py-4 bg-light" align="center">
                     <div class="justify-content-center" >
                         <div class="col-10" >
+                            <span>{luisf.torov,santiago.povedag,mateoa.rodriguez} uqvirtual.edu.co</span>
+                            <br/>
                             <span>Universidad del Quindío - Analisis de Algoritmos</span>
                         </div>
                     </div>

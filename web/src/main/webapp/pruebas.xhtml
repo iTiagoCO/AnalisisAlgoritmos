@@ -24,9 +24,7 @@
                     <h:outputText value="#{fila.estudiante.nombre}" />
                 </p:column>
 
-                <p:column headerText="Profesor">
-                    <h:outputText value="#{fila.profesor.nombre}" />
-                </p:column>
+
 
                 <p:column headerText="Profesor">
                     <h:outputText value="#{fila.profesor.nombre}" />
@@ -34,13 +32,14 @@
 
                 <p:column headerText="Valor">
                     <h:outputText value="#{fila.calificacion.descripcion}" />
+
                 </p:column>
 
                 <p:column headerText="Status">
-                  
 
-                    <span class="customer-badge status-#{fila.estatus !=0 ? 'regular' : 'malo'}">
-                        #{fila.estatus !=0 ? 'TERMINO' : 'EXPIRO'}
+
+                    <span class="customer-badge status-#{fila.estatus !=0 ? 'termino' : 'incompleto'}">
+                        #{fila.estatus !=0 ? 'TERMINO' : 'EXPIRO EL TIEMPO'}
 
                     </span>
                 </p:column>

@@ -8,7 +8,7 @@
 
 
 .customer-badge {
-    
+
     border-radius: 2px;
     padding: .25em .5rem;
     text-transform: uppercase;
@@ -17,22 +17,34 @@
     letter-spacing: .3px;
 }
 
-.customer-badge.status-malo {
+.customer-badge.status-incompleto {
+    background: #FABD9A;
+    color: #AD342B;
+}
+
+.customer-badge.status-termino {
+    background: #EFB8E5;
+    color: #833F91;
+}
+
+
+
+.customer-badge.status-necesitamejorar {
     background-color: #ffcdd2;
     color: #c63737;
 }
 
-.customer-badge.status-regular {
+.customer-badge.status-bueno {
     background-color: #ffd8b2;
     color: #805b36;
 }
 
-.customer-badge.status-promedio {
+.customer-badge.status-muybueno {
     background-color: #b3e5fc;
     color: #23547b;
 }
 
-.customer-badge.status-bueno{
+.customer-badge.status-excelente{
     background-color: #c8e6c9;
     color: #256029;
 }
@@ -324,4 +336,25 @@ label.radio input:checked+span {
     .comentario-usuario{
         width: 100%;
     }
+}
+
+span.flag {
+    width: 44px;
+    height: 30px;
+    display: inline-block;
+}
+
+img.flag {
+    width: 30px
+}
+
+.flag {
+    background: url("https://cdn-icons-png.flaticon.com/512/330/330508.png") no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+}
+
+.flag-co {
+
+    background-position: 0 19.421488%
 }

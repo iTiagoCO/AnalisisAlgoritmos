@@ -78,4 +78,9 @@ public class PruebaServicioImpl implements PruebaServicio {
 
     }
 
+
+    public List<Prueba> buscarPruebasByEstudiante (String email) throws Exception{
+        return pruebaRepo.buscarPruebasByEstudiante(email);
+    }
+
 }

@@ -9,13 +9,133 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h1="http://java.sun.com/jsf/html">
 <ui:composition template="WEB-INF/template.xhtml">
-    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="title">Inicio docente</ui:define>
     <ui:define name="content">
 
+        <script type="text/javascript">
+
+            function skinRadarChart() {
+                Chart.defaults.startAngle = 36;
+                Chart.defaults.plugins.tooltip.cornerRadius = 3;
+                Chart.defaults.plugins.tooltip.enabled = true;
+                Chart.defaults.plugins.tooltip.mode = 'point';
+                Chart.defaults.plugins.tooltip.position = 'nearest';
+            }
+        </script>
 
 
+        <h5 class="mt-0">👋 Hola! Bienvenido.</h5>
+        <p:panel header="Introduccion">
+            <p class="m-0">
+                Este instrumento de evaluación permite, "registrar el grado-calificacion", de acuerdo con una escala determinada, en el cual un comportamiento, una habilidad o una actitud determinada en este caso
+                (El desarrollo de la logica en el cerebro) es desarrollada por la o el estudiante.
+            </p>
+            <br></br>
+            <p class="m-0">
+                Es importante recalcar que este tipo de instrumento de evaluación define las categorías, pero no describe el nivel de logro alcanzado para cada criterio, Las escalas de calificación utilizan diferentes unidades de medición como: tiempo, categorias, status y otras. Para efecto de este trabajo.
+            </p>
+            <br></br>
+            <p>
+                Unidades de medición: definición del desempeño y clasificación
+                <br></br>
+                Fuente: Elaboración propia
+                <br></br>
+                <br></br>
+                Clasificación de escalas: Estas se clasifican en escala numérica, escala descriptiva y escala gráfica, aunque en este documento solamente se describe la escala numérica y la descriptiva, debido a que la escala gráfica se usa para consignar datos estadísticos o diagnósticos.
+            </p>
+
+            <p:panel header="Escala numerica">
+                <p class="m-0">
+                    Escala de calificación en la que se atribuyen valores numéricos al grado o nivel de calidad que cada estudiante evidencia en la ejecución de un criterio de evaluación dado. La escala considera un valor numérico para cada uno de los grados que la componen.
+
+                    <br/>
+                    Niveles de rendimiento:
+                    1= Necesita mejorar 2= Bueno 3 = Muy bueno 4 = Excelente
+                    <br/>
+                    <img alt="Qriess" src="https://i.ibb.co/whRd3TL/image.png"/>
+                    <br/>
+                </p>
+
+                <p:panel header="Criterios">
+                    <p class="m-0">
+                        <br/>
+                        <img alt="Qries" src="https://i.ibb.co/fScdbRT/image.png"/>
+                    </p>
+                </p:panel>
+            </p:panel>
+            <p:panel header="Escala descriptiva">
+                <p>
+                    Esta escala permite utilizar descripciones para identificar cada uno de los puntos o categorías de la escala en relación con los criterios.
+                    <br/>
+                    Se realizo uso de un Status determinando si la prueba fue correctamente finalizada o no utilizando -1 como (Incompleta por tiempo) y 5 terminada.
+                    <br/>
+                    El tiempo medio de concentración de los niños según su edad varia, es por eso que nuestra encuesta esta realizada a tener una duración menor a 15 minutos promedio, El cerebro se ocupa con mucha rapidez del procesamiento del lenguaje y la información asociada a las palabras, en particular en un periodo de 200 milisegundos, y necesita alrededor de 180 ms para terminar con éxito esta operación, las preguntas de nuestro banco no exceden 12 palabras eso nos da como resultado alrededor de 2.2s pero teniendo en cuenta la complejidad de niños para leer es una variable en ciertos casos indeterminable:
+                    <br/>
+
+                    <br/>
+                    <img alt="Qries" src="https://www.educapeques.com/wp-content/uploads/2018/03/tabla-concentraci%C3%B3n.jpg"/>
+                    <br/>
+                    <br/>
+                    Por lo general es a partir de los 6 años, cuando la madurez neurológica de nuestro cerebro, nos permite comenzar este aprendizaje. ¿Por qué a partir de los 6 años y no antes? Porque, antes de comenzar a leer, hay que adquirir unas habilidades previas, y estas habilidades antes de los 6 aún están (y seguirán) en desarrollo.
+
+                    <h6>
+                        El calculo de el tiempo limite se determina de la siguiente manera:
+                    </h6>
+                    <br/>
+                    tiempoLimite = cantidad de preguntas * 80 segundos (80 segundos por cada pregunta);
+                    <br/>
+
+                </p>
+            </p:panel>
+            <br/>
+
+            La actual herramienta se puede usar para lograr una clara descripción del rasgo o atributo que interesa observar en las diferentes estrategias o técnicas de aprendiza específicamente el actual se utilizara especialmente para la autorregulación y la autoevaluación de cada estudiante. En este sentido, el instrumento de evaluación tiene como propósito suministrar información valiosa para fortalecer, modificar y mejorar los procesos de aprendizaje. Permiten recopilar y ordenar los criterios de desempeño y cumplimiento de cada estudiante respecto a el desarrollo y nivel de la lógica computacional. Dichos criterios también sirven como realimentación a cada estudiante de su proceso de aprendizaje, por lo que mejora y fortalece el proceso de regulación y autorregulación. Asimismo, cumplen con diversas funciones como asignar una calificación de forma más objetiva, aplicar la autoevaluación, la coevaluación y la evaluación unidireccional
+            <br/>
+        </p:panel>
 
 
+        <div class="card">
+            <p:splitter rendered="#{seguridadBean.admin}">
+                <p:splitterPanel>
+
+                    <div style="width: 480px">
+
+                        <div>
+                            <p:radarChart style="width: 10%; height: 10px;"
+                                          rendered="#{seguridadBean.admin}" model="#{inicioBean.radarModel}"/>
+                        </div>
+                    </div>
+
+                </p:splitterPanel>
+                <p:splitterPanel styleClass="center">
+                    <div style="width: 450px">
+                        <div>
+                            <p:polarAreaChart rendered="#{seguridadBean.admin}" model="#{inicioBean.polarAreaModel}"
+                                              style="width: 5%; height: 5px;"/>
+
+                        </div>
+
+                    </div>
+
+
+                </p:splitterPanel>
+
+            </p:splitter>
+
+
+            <p:splitter rendered="#{seguridadBean.admin}" style="height: 300px" styleClass="mb-5">
+                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
+                    <p:lineChart rendered="#{seguridadBean.admin}" model="#{inicioBean.lineModel}"
+                                 style="width: 20%; height: 40px;"/>
+                </p:splitterPanel>
+                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
+                    <p:barChart rendered="#{seguridadBean.admin}" model="#{inicioBean.hbarModel}"
+                                style="width: 30%; height: 60px;"/>
+
+                </p:splitterPanel>
+
+            </p:splitter>
+        </div>
 
     </ui:define>
 </ui:composition>
