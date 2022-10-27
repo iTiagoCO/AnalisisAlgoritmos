@@ -23,18 +23,6 @@ Los resultados presentan el proceso de diseño, desarrollo, implementación y li
 > SCSS - CSS
 > JAVA
 
-# Vista previa
-
-### Dashboard
-
-![Qries3](https://i.ibb.co/xLXM4rZ/image.png)  
-
-
-### Docente
-![Qries2](https://i.ibb.co/0VsTZwn/image.png) 
-
-### Estudiante
-![Qries](https://i.ibb.co/5G1TV3R/image.png) 
 
 ## License
 MIT
