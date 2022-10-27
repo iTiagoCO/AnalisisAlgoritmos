@@ -125,13 +125,13 @@ public class QuizBean implements Serializable {
         if (indexPregunta > maxIndex) {
             indexPregunta = maxIndex;
         }
-        //System.out.println("co.edu.uniquindio.proyecto.bean.QuizBean.preguntaSiguiente() " + indexPregunta);
+
 
         if(indexPregunta==maxIndex){
-
+        finalizo();
         }
 
-        //sera por esto?
+
         buscarPregunta();
 
     }

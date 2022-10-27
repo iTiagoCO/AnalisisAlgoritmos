@@ -94,48 +94,7 @@
         </p:panel>
 
 
-        <div class="card">
-            <p:splitter rendered="#{seguridadBean.admin}">
-                <p:splitterPanel>
 
-                    <div style="width: 480px">
-
-                        <div>
-                            <p:radarChart style="width: 10%; height: 10px;"
-                                          rendered="#{seguridadBean.admin}" model="#{inicioBean.radarModel}"/>
-                        </div>
-                    </div>
-
-                </p:splitterPanel>
-                <p:splitterPanel styleClass="center">
-                    <div style="width: 450px">
-                        <div>
-                            <p:polarAreaChart rendered="#{seguridadBean.admin}" model="#{inicioBean.polarAreaModel}"
-                                              style="width: 5%; height: 5px;"/>
-
-                        </div>
-
-                    </div>
-
-
-                </p:splitterPanel>
-
-            </p:splitter>
-
-
-            <p:splitter rendered="#{seguridadBean.admin}" style="height: 300px" styleClass="mb-5">
-                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
-                    <p:lineChart rendered="#{seguridadBean.admin}" model="#{inicioBean.lineModel}"
-                                 style="width: 20%; height: 40px;"/>
-                </p:splitterPanel>
-                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
-                    <p:barChart rendered="#{seguridadBean.admin}" model="#{inicioBean.hbarModel}"
-                                style="width: 30%; height: 60px;"/>
-
-                </p:splitterPanel>
-
-            </p:splitter>
-        </div>
 
     </ui:define>
 </ui:composition>
