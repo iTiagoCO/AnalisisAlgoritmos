@@ -31,9 +31,11 @@ Los resultados presentan el proceso de diseño, desarrollo, implementación y li
 
 
 ### Docente
+
 ![Qries](https://i.ibb.co/0VsTZwn/image.png) 
 
 ### Estudiante
+
 ![Qries](https://i.ibb.co/5G1TV3R/image.png) 
 
 ## License
