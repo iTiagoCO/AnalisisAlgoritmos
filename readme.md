@@ -27,15 +27,13 @@ Los resultados presentan el proceso de diseño, desarrollo, implementación y li
 
 ### Dashboard
 
-![Qries](https://i.ibb.co/xLXM4rZ/image.png)  
+![Qries3](https://i.ibb.co/xLXM4rZ/image.png)  
 
 
 ### Docente
-
-![Qries](https://i.ibb.co/0VsTZwn/image.png) 
+![Qries2](https://i.ibb.co/0VsTZwn/image.png) 
 
 ### Estudiante
-
 ![Qries](https://i.ibb.co/5G1TV3R/image.png) 
 
 ## License
@@ -43,3 +41,4 @@ MIT
 
 **{luisf.torov,santiago.povedag,mateoa.rodriguez} @uqvirtual.edu.co**
 ##### Universidad del Quindío - Analisis de Algoritmos
+      
