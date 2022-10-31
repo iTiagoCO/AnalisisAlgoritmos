@@ -17,7 +17,7 @@ Clasificación de escalas: Estas se clasifican en escala numérica, escala descr
 Fuente: Elaboración propia  
 
 # Herramientas
-Los resultados presentan el proceso de diseño, desarrollo, implementación y liberación de la aplicación móvil haciendo uso del Framework IONIC con base en AngularJS y Cordova, siendo este híbrido y de código abierto, utilizando Typescript como lenguaje de programación permitiendo llevar un mejor control de código y su paradigma orientado a objetos haciendo que el código sea mucho más legible.
+Los resultados presentan el proceso de diseño, desarrollo, implementación y liberación de el test se hizo a travez de Springboot.
 > Primefaces
 > Javascript
 > SCSS - CSS
