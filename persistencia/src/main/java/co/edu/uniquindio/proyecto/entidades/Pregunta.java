@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class Pregunta implements Serializable {
 
     @Column(nullable = false)
     private Boolean esVisible;
+
+
+    @PositiveOrZero
+    @Column(nullable = false)
+    private Integer complejidad;
 
     @OneToMany(mappedBy = "pregunta")
     @ToString.Exclude

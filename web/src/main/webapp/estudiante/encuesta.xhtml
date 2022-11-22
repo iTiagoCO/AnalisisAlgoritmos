@@ -55,12 +55,6 @@
                                 </div>
                                 <div class="col-12">
 
-
-                                    <p:commandButton id="saveBtn" value="Anterior" styleClass="ui-button-secondary m-2"
-                                                     actionListener="#{quizBean.preguntaAnterior()}"
-                                                     icon="pi pi-arrow-left"
-                                                     update="idContenedor"
-                                    />
                                     <p:commandButton id="saveBtn2" value="Siguiente" styleClass="ui-button-success m-2" 
                                                      actionListener="#{quizBean.preguntaSiguiente()}"
                                                      icon="pi pi-arrow-right"
@@ -123,7 +117,7 @@
                                             value="#{quizBean.timeRestante}"
                                             min="0"
                                             max="#{quizBean.tiempoLimite}"
-                                            height="70" width="70" 
+                                            height="70" width="70"
 
                                             />
                                 </div>
@@ -134,7 +128,7 @@
 
 
                     </div>
-                    <p:blockUI block="pnl" trigger="saveBtn,saveBtn2, saveBtn3, saveBtn4" widgetVar="buiBasic"/>
+                    <p:blockUI block="pnl" trigger="saveBtn2, saveBtn3, saveBtn4" widgetVar="buiBasic"/>
                 </p:panel>
 
 

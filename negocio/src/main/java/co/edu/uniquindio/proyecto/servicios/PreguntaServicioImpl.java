@@ -26,6 +26,11 @@ public class PreguntaServicioImpl implements PreguntaServicio {
     }
 
     @Override
+    public List<Pregunta> findByComplejidad(Integer complejidad) throws Exception {
+        return preguntaRepo.buscarPruebasComplejidad(complejidad);
+    }
+
+    @Override
     public Pregunta registrarPregunta(Pregunta u) throws Exception {
         return preguntaRepo.save(u);
     }

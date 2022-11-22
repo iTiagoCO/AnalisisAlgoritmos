@@ -31,6 +31,8 @@ public class Categorias {
     private String descripcion;
 
 
+
+
     @OneToMany(mappedBy = "categoria")
     @ToString.Exclude
     private List<Pregunta> preguntaList;

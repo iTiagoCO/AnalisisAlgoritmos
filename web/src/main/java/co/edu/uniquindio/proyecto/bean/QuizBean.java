@@ -91,13 +91,15 @@ public class QuizBean implements Serializable {
     @Setter
     private boolean mostrarRespuestas;
     private Integer id;
+    private Integer complejidad;
 
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
 
 
         preguntaList = preguntaServicio.preguntasList();
         indexPregunta = 0;
+        complejidad = 3;
         opcionesRespondidas = new ArrayList<>();
         buscarPregunta();
         reiniciar();
@@ -136,15 +138,7 @@ public class QuizBean implements Serializable {
 
     }
 
-    public void preguntaAnterior() {
-        indexPregunta--;
 
-        if (indexPregunta < 0) {
-            indexPregunta = 0;
-        }
-
-        buscarPregunta();
-    }
 
     public void increment() {
 
@@ -167,7 +161,7 @@ public class QuizBean implements Serializable {
         return format.format(time);
     }
 
-    public void reiniciar() {
+    public void reiniciar() throws Exception {
         // tiempoLimite = 180;
         tiempoLimite = preguntaServicio.preguntasList().size()*80;
         timeSegundos = 0;
@@ -193,6 +187,8 @@ public class QuizBean implements Serializable {
                 preguntaRespuesta.setCorrecta(opcioneSelecionada.getEsCorrecta());
                 preguntaRespuesta.setValor(opcioneSelecionada.getValor());
 
+
+
             opcionesRespondidas.add(preguntaRespuesta);
             }
         } else {
@@ -203,6 +199,9 @@ public class QuizBean implements Serializable {
             preguntaRespuesta.setCorrecta(opcioneSelecionada.getEsCorrecta());
             preguntaRespuesta.setValor(opcioneSelecionada.getValor());
         }
+
+
+
         sumarCalifiacion();
 
     }
@@ -296,5 +295,8 @@ public class QuizBean implements Serializable {
     public boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }
+
+
+
 
 }

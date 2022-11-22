@@ -4,6 +4,7 @@ import co.edu.uniquindio.proyecto.entidades.Estudiante;
 import co.edu.uniquindio.proyecto.entidades.Pregunta;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PreguntaServicio {
 
@@ -11,6 +12,7 @@ public interface PreguntaServicio {
     Pregunta actualizarPregunta(Pregunta u) throws Exception;
     Pregunta obtenerPregunta (Integer codigo);
     void eliminarPregunta(Integer codigo) throws Exception;
-    List<Pregunta> preguntasList();
+    List<Pregunta> preguntasList() throws Exception;
+    List<Pregunta> findByComplejidad(Integer complejidad) throws Exception;
        
 }
